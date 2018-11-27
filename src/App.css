@@ -16,7 +16,7 @@
   margin: 53px 0;
 }
 
-#app > aside > a {
+#app > aside li {
   text-align: center;
   margin: 19px 0;
   display: block;
