@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 // import { createBrowserHistory } from 'history';
 import createBrowserHistory from "history/createBrowserHistory";
-import store from './modules/store';
-import { fetchData } from './modules/actions/fetchData';
+import store from './store';
+import { fetchData } from './actions/fetchData';
 
 import './index.css';
 import App from './App';

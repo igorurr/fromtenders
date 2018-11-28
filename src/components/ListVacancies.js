@@ -1,5 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from "react-redux";
+
+import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
+import {fetchData} from "../actions/fetchData";
+
 
 const ListVacancies = ({
   isFetching,
@@ -43,4 +48,20 @@ ListVacancies.propTypes = {
   removeIfExist: PropTypes.func.isRequired,
 };
 
-export default ListVacancies;
+
+const mapStateToProps = state => ({
+  isFetching: state.receivedData.isFetching,
+  page: state.receivedData.loadedPage,
+  items: state.receivedData.items,
+});
+
+const mapDispatchToProps = dispatch => ({
+  loadNextPage: page => dispatch(fetchData(page)),
+  addIfNotExist: vac => dispatch(addIfNotExist(vac)),
+  removeIfExist: vac => dispatch(removeIfExist(vac)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ListVacancies);

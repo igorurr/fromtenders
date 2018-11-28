@@ -1,5 +1,5 @@
 export const REQUEST_DATA = 'REQUEST_DATA';
-export const RECIEVE_DATA = 'RECIEVE_DATA';
+export const RECEIVE_DATA = 'RECEIVE_DATA';
 
 const requestData = () => ({
   type: REQUEST_DATA,
@@ -9,7 +9,7 @@ const recieveData = (data, page) => {
   const d = new Date();
   const t = `${d.toLocaleTimeString('ru-RU')}.${d.getMilliseconds()}`;
   return {
-    type: RECIEVE_DATA,
+    type: RECEIVE_DATA,
     items: data,
     page,
     receivedAt: t,

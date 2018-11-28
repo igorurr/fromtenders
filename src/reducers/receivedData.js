@@ -1,6 +1,6 @@
 import {
   REQUEST_DATA,
-  RECIEVE_DATA,
+  RECEIVE_DATA,
 } from '../actions/fetchData';
 
 const initialState = {
@@ -17,7 +17,7 @@ const receivedData = (state = initialState, action) => {
         ...state,
         isFetching: true,
       };
-    case RECIEVE_DATA:
+    case RECEIVE_DATA:
       return {
         ...state,
         isFetching: false,
