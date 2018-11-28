@@ -1,35 +1,46 @@
-import React, {Component} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class ListVacancies extends Component {
-  constructor(props) {
-    super(props);
+const ListVacancies = ({
+  isFetching,
+  page,
+  items,
+  loadNextPage,
+  addIfNotExist,
+  removeIfExist,
+}) => {
+  const onNextPage = () => {
+    if (!isFetching) {
+      loadNextPage(page + 1);
+    }
+  };
 
-    this.state = {
-      list: [
-        {
-          name: 'ds5f',
-          position: [55.75, 37.57],
-          description: 'dfdfgfdfgdfgfg'
-        },
-        {
-          name: 'ds4f',
-          position: [55.75, 38.57],
-          description: 'dfdfgfdfgdfgfg'
-        },
-        {
-          name: 'dsf6',
-          position: [56.75, 37.57],
-          description: 'dfdfgfdfgdfgfg'
-        }
-      ]
-    };
-  }
+  return (
+    <div>
+      <div>
+        {page}
+      </div>
+      <button onClick={onNextPage} type="button">Next</button>
+      {
+        items.map(v => (
+          <div key={v.id}>
+            {v.name}
+            <button onClick={() => addIfNotExist(v)} type="button">Add</button>
+            <button onClick={() => removeIfExist(v)} type="button">Remove</button>
+          </div>
+        ))
+      }
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <p />
-    );
-  }
+ListVacancies.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  page: PropTypes.number.isRequired,
+  loadNextPage: PropTypes.func.isRequired,
+  addIfNotExist: PropTypes.func.isRequired,
+  removeIfExist: PropTypes.func.isRequired,
 };
 
 export default ListVacancies;
