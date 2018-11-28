@@ -14,7 +14,6 @@ class RowComponent extends React.Component {
   render() {
     return (
       <li>
-        {console.log(this.props.item)}
         {this.props.item.name} from {this.props.item.position} to {this.props.item.description}
         <button onClick={this.props.onAdd}>Add</button>
         <button onClick={this.props.onRemove}>Remove</button>
@@ -28,6 +27,7 @@ class ListVacancies extends React.Component {
     super(props);
 
     this.handleScroll = this.handleScroll.bind(this);
+    this.nextPage = this.nextPage.bind(this);
   }
 
   handleScroll() {
@@ -38,12 +38,18 @@ class ListVacancies extends React.Component {
     if (this.props.isFetching || currentBottomScroll > bottomScrollMark) {
       return;
     }
+    this.nextPage();
+  }
+
+  nextPage() {
     this.props.loadNextPage(this.props.page + 1);
   }
 
   render() {
     return (
       <div onScroll={this.handleScroll}>
+        {this.props.page}
+        <button onClick={this.nextPage} type="button">Next</button>
         <ul>
           {this.props.items.map(
             item => (

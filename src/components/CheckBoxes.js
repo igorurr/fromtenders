@@ -41,14 +41,16 @@ class CheckBoxes extends Component {
     return (
       <content className={"input-checkbox"}>
         {this.state.data.map((el,i,arr) => (
-          <label className={"input-checkbox-elem"}>
-            <input
-              type={"checkbox"}
-              checked={this.state.actives.indexOf(el.value)!==-1}
-              onChange={this.updateInputValue}
-              value={el.value}
-            />
-            {el.text}
+          <label
+            key={el.value}
+            className={"input-checkbox-elem"}>
+              <input
+                type={"checkbox"}
+                checked={this.state.actives.indexOf(el.value)!==-1}
+                onChange={this.updateInputValue}
+                value={el.value}
+              />
+              {el.text}
           </label>
         ))}
       </content>

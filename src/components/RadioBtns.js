@@ -25,9 +25,16 @@ class RadioBtns extends Component {
     return (
       <content className={"input-radio"}>
         {this.state.data.map((el,i,arr) => (
-          <label className={"input-radio-elem"}>
-            <input type={"radio"} checked={this.state.active==el.value} onChange={this.updateInputValue} value={el.value} />
-            {el.text}
+          <label
+            key={el.value}
+            className={"input-radio-elem"}>
+              <input
+                type={"radio"}
+                checked={this.state.active==el.value}
+                onChange={this.updateInputValue}
+                value={el.value}
+              />
+              {el.text}
           </label>
         ))}
       </content>
