@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter as Router } from 'connected-react-router';
+import createBrowserHistory from 'history/createBrowserHistory';
 
 import { Page1, Page2 } from './containers'
+import './App.css';
+
+const history = createBrowserHistory();
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <div>
-          <Route exact path={'/'} component={Page1} />
-          <Route path={'/map'} component={Page2} />
+          <Switch>
+            <Route exact path={'/'} component={Page1} />
+            <Route path={'/map'} component={Page2} />
+          </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
