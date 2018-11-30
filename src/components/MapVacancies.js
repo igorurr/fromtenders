@@ -17,6 +17,7 @@ class MapVacancies extends Component {
     };
 
     this.initMapObject = this.initMapObject.bind(this);
+    this.checkItemsForSelected = this.checkItemsForSelected.bind(this);
     this.updateCurrentAddress = this.updateCurrentAddress.bind(this);
   }
 
@@ -26,6 +27,14 @@ class MapVacancies extends Component {
 
   getItemsFromAddress(items,activeAddress) {
     return items.filter((el) => el.address.lat == activeAddress[0] && el.address.lng == activeAddress[1]);
+  };
+
+  checkItemsForSelected(items) {
+    let selectedItemsIds = this.props.selectedItems.map((el)=>el.id);
+    return items.map((el) => {
+      el.isSelected = selectedItemsIds.indexOf( el.id ) != -1;
+      return el;
+    });
   };
 
   updateCurrentAddress( bounds ) {
@@ -64,12 +73,11 @@ class MapVacancies extends Component {
 
   render() {
     const items = this.cleareNullAddress(this.props.items)
-    const itemsFromCurrentAddres = this.getItemsFromAddress(items,this.props.activeAddress);
-
+    const itemsFromCurrentAddres = this.checkItemsForSelected(this.getItemsFromAddress(items,this.props.activeAddress));
     return (
       <content className={"map-vacancies"}>
         <MapLeftBarVacancies items={itemsFromCurrentAddres} />
-        <YMaps onApiAvaliable={(ymaps) => console.log(ymaps)} preload >
+        <YMaps preload >
           <Map
             defaultState={{
               center: [55.76, 37.59],
@@ -89,6 +97,7 @@ class MapVacancies extends Component {
 
 const mapStateToProps = state => ({
   items: state.receivedData.items,
+  selectedItems: state.selectedVacancies.selected,
   activeAddress: state.map.activeAddress
 });
 

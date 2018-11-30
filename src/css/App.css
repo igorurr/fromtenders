@@ -8,6 +8,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -121,21 +125,37 @@ code {
   padding: 5px;
 }
 
-.map-vacancies-address-container article a {
-  text-decoration: none;
-  display: block;
+.map-vacancies-address-container article content,
+.map-vacancies-address-container article footer {
+  max-width: calc(100% - 40px);
 }
 
-.map-vacancies-address-container article a:hover {
-  background: #F5F5F5;
-}
-
-.map-vacancies-address-container article content {
+.map-vacancies-address-container article content a {
   color:#000;
 }
 
 .map-vacancies-address-container article footer {
+  position: relative;
   color: #777;
   font-size: 14px;
   margin: 3px;
+}
+
+.map-vacancies-address-container article footer p {
+  margin: 0;
+}
+
+.map-vacancies-address-container article footer a {
+  display: block;
+  position: absolute;
+  height: 24px;
+  width: 26px;
+  right: -40px;
+  bottom: -4px;
+  background: url('../img/star2.png');
+  cursor: pointer;
+}
+
+.map-vacancies-address-container article footer a.selected {
+  background: url('../img/star1.png');
 }
