@@ -1,7 +1,6 @@
 import CheckBoxes from './CheckBoxes';
 import Filters from './Filters';
 import ListVacancies from './ListVacancies';
-import MapBaloon from './MapBaloon';
 import MapVacancies from './MapVacancies';
 import MapPlacemark from './MapPlacemark';
 import MapPlacemarks from './MapPlacemarks';
@@ -12,7 +11,6 @@ export {
   CheckBoxes,
   Filters,
   ListVacancies,
-  MapBaloon,
   MapVacancies,
   MapPlacemark,
   MapPlacemarks,

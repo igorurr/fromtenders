@@ -5,7 +5,7 @@ const tryRemoveFromArray = function( arr, elem )
     return;
 
   arr.splice(pos,1);
-}
+};
 
 const tryPushToArray = function( arr, elem )
 {
@@ -14,6 +14,11 @@ const tryPushToArray = function( arr, elem )
     return;
 
   arr.push(elem);
+};
+
+// for arrays
+const compare = function( a1, a2 ) {
+  return a1.length == a2.length && a1.every((v,i)=>v === a2[i])
 }
 
-export { tryRemoveFromArray, tryPushToArray };
+export { tryRemoveFromArray, tryPushToArray, compare };

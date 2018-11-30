@@ -28,6 +28,10 @@ code {
 }
 
 
+.disabled {
+  display: none;
+}
+
 
 #app > aside ul {
   margin: 0;
@@ -99,4 +103,39 @@ code {
   width: 70px;
   margin: 0 10px;
   height: 19px;
+}
+
+
+.map-vacancies-address-container {
+  margin: 10px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  box-shadow: #0008 0 0 5px;
+  max-width: 40%;
+}
+
+.map-vacancies-address-container article {
+  margin: 5px;
+  padding: 5px;
+}
+
+.map-vacancies-address-container article a {
+  text-decoration: none;
+  display: block;
+}
+
+.map-vacancies-address-container article a:hover {
+  background: #F5F5F5;
+}
+
+.map-vacancies-address-container article content {
+  color:#000;
+}
+
+.map-vacancies-address-container article footer {
+  color: #777;
+  font-size: 14px;
+  margin: 3px;
 }

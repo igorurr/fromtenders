@@ -1,55 +1,37 @@
 import React, {Component} from 'react'
 
 import { MapPlacemark } from './index'
-
-import { cleareNullAddress, mapObj, latLngToString } from '../helpers/map'
+import {connect} from "react-redux";
 
 class MapPlacemarks extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      items: cleareNullAddress(props.items)
-    };
-
-    this.itemsPreprocess = this.itemsPreprocess.bind(this);
-    this.fsdfsdfsdf = this.itemsPreprocess([],cleareNullAddress(props.items));
-
-    let hhh = ()=>{
-      this.setState((oldState)=> ({
-        items: oldState.items.concat(oldState.items)
-      }));
-      this.fsdfsdfsdf = this.itemsPreprocess( this.fsdfsdfsdf, this.state.items );
-    };
-    hhh = hhh.bind(this);
-    //setTimeout(hhh,3000);
-    //setTimeout(hhh,4000);
   }
 
-  itemsPreprocess ( items, newItems ){
-    let ret = Object.assign({}, items);
-    newItems.forEach((newItem,i,arr)=>{
-      const coordStr = latLngToString( newItem.address.lat, newItem.address.lng );
-      if( coordStr in ret )
-      {
-        ret[coordStr].push(newItem);
-      }
-      else
-      {
-        ret[coordStr] = [newItem];
-      }
+  getPositions ( items ){
+    let ret = [];
+    items.forEach((item,i,arr)=>{
+      let position = [ item.address.lat, item.address.lng ];
+      if( !ret.find((el) => el[0] == position[0] && el[1] == position[1]) )
+        ret.push(position)
     });
     return ret;
   };
 
   render() {
-    return mapObj(this.fsdfsdfsdf, (el,key)=>(
+    return this.getPositions(this.props.items).map((address,i)=>(
       <MapPlacemark
-        key={key}
-        items={el}
+        key={address}
+        address={address}
       />
     ));
   }
 };
 
-export default MapPlacemarks;
+const mapStateToProps = state => ({
+  activeAddress: state.map.activeAddress,
+});
+
+export default connect(
+  mapStateToProps,
+)(MapPlacemarks);
