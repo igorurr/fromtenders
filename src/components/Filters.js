@@ -34,7 +34,7 @@ class Filters extends Component {
     const { exp, empl, schedule, sortType, salary } = this.state;
     const { handleSubmit } = this.props;
 
-    const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=113';
+    const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
     const newPath = `${origPath}${exp}${empl}${schedule}${salary}${sortType}`;
 
     return (

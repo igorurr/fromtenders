@@ -9,7 +9,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=113';
+const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
 store.dispatch(fetchData(origPath, 0));
 
 render(
