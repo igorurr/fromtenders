@@ -1,9 +1,11 @@
 import {
   REQUEST_DATA,
+  REQUEST_ANOTHER_DATA,
   RECEIVE_DATA,
 } from '../actions/fetchData';
 
 const initialState = {
+  search: '',
   isFetching: false,
   loadedPage: 0,
   items: [],
@@ -15,6 +17,14 @@ const receivedData = (state = initialState, action) => {
     case REQUEST_DATA:
       return {
         ...state,
+        search: action.search,
+        isFetching: true,
+      };
+    case REQUEST_ANOTHER_DATA:
+      return {
+        ...state,
+        items: [],
+        search: action.search,
         isFetching: true,
       };
     case RECEIVE_DATA:

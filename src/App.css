@@ -30,31 +30,13 @@
   font-size: 17px;
 }
 
-#app > aside > h2 {
+/* #app > aside > h2 {
   margin: 53px 0;
-}
+} */
 
-#app > aside li {
+/* #app > aside li {
   margin: 19px 0;
-}
-
-#app > aside .filters {
-  margin: 53px 19px;
-}
-
-#app > aside .filters li {
-  display: flex;
-  font-size: 14px;
-}
-
-#app > aside .filters li header {
-  width: 111px;
-  text-align: left;
-}
-
-#app > aside .filters li content {
-  width: 187px;
-}
+} */
 
 
 .map-vacancies {
@@ -63,23 +45,11 @@
    margin: 0;
 }
 
-
-.input-radio,
-.input-checkbox {
-  text-align: left;
-}
-
-
-.input-radio-elem,
-.input-checkbox-elem {
-  display: block;
-}
-
-.form-diappason content {
+.form-diapason content {
   display: flex;
 }
 
-.form-diappason input {
+.form-diapason input {
   width: 70px;
   margin: 0 10px;
   height: 19px;

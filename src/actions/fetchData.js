@@ -1,9 +1,16 @@
 export const REQUEST_DATA = 'REQUEST_DATA';
+export const REQUEST_ANOTHER_DATA = 'REQUEST_ANOTHER_DATA';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
 
-const requestData = () => ({
+const requestData = search => ({
   type: REQUEST_DATA,
+  search,
 });
+
+const requestAnotherData = search => ({
+  type: REQUEST_ANOTHER_DATA,
+  search,
+})
 
 const recieveData = (data, page) => {
   const d = new Date();
@@ -16,10 +23,14 @@ const recieveData = (data, page) => {
   };
 };
 
-export const fetchData = page => (dispatch) => {
-  const api = 'https://api.hh.ru/vacancies?text=Frontend';
-  dispatch(requestData());
-  return fetch(`${api}&page=${page}`)
+export const fetchData = (search, page) => (dispatch) => {
+  if (page === 0) {
+    dispatch(requestAnotherData(search))
+  } else {
+    dispatch(requestData(search));
+  }
+
+  return fetch(`${search}&page=${page}`)
     .then(
       response => response.json(),
       (error) => {
@@ -35,7 +46,7 @@ export const fetchData = page => (dispatch) => {
         employer: i.employer,
         published_at: i.published_at,
         alternate_url: i.alternate_url,
-        snippet: i.snippet,
+        key_values: i.key_values,
       }));
       dispatch(recieveData(info, page));
     });

@@ -1,66 +1,91 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 
-import {CheckBoxes,RadioBtns,TextField} from './index'
-import * as consts from '../constants/Filters'
+import { FilterGroup } from './index';
+import { fetchData } from '../actions/fetchData';
+import {
+  EXPERIENCE,
+  EMPLOYMENT,
+  SCHEDULE,
+  SORT_TYPE,
+  SALARY
+} from '../constants/Filters';
+
 
 class Filters extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      exp: '',
+      empl: '',
+      schedule: '',
+      salary: '',
+      sortType: '',
     };
   }
 
+  takeNewPath = (path, statePart) =>
+    this.setState({
+      [statePart]: path
+    });
+
   render() {
+    const { exp, empl, schedule, sortType, salary } = this.state;
+    const { handleSubmit } = this.props;
+
+    const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=113';
+    const newPath = `${origPath}${exp}${empl}${schedule}${salary}${sortType}`;
+
     return (
-      <ul className={"filters"}>
-        <li>
-          <header>Поиск:</header>
-          <content>
-            <TextField onChange={(msg)=>console.log(msg)} />
-          </content>
-        </li>
-        <li className={"form-diappason"}>
-          <header>Заработная плата:</header>
-          <content>
-            <TextField type={"number"} onChange={(msg)=>console.log(msg)} placeholder={'От'} />
-            -
-            <TextField type={"number"} onChange={(msg)=>console.log(msg)} placeholder={'До'} />
-            ₽
-          </content>
-        </li>
-        <li>
-          <header>Опыт работы:</header>
-          <RadioBtns data={consts.EXPERIENCE_SELECTOR} default={'0'} onChange={(msg)=>console.log(msg)} />
-        </li>
-        <li>
-          <header>Тип занятости:</header>
-          <CheckBoxes data={consts.EMPLOYMENT_SELECTOR} default={['0']} onChange={(msg)=>console.log(msg)} />
-        </li>
-        <li>
-          <header>График работы:</header>
-          <content>
-            <CheckBoxes data={consts.SCHEDULE_SELECTOR} default={['0']} onChange={(msg)=>console.log(msg)} />
-          </content>
-        </li>
-        <li>
-          <header>Сортировать по:</header>
-          <RadioBtns data={consts.SORT_TYPE_SELECTOR} default={'1'} onChange={(msg)=>console.log(msg)} />
-        </li>
-        <li>
-          <header>Город:</header>
-          <RadioBtns data={consts.SITY_SELECTOR} default={'0'} onChange={(msg)=>console.log(msg)} />
-        </li>
-        <li>
-          <header>Выводить за:</header>
-          <RadioBtns data={consts.DISPLAY_BY_SELECTOR} default={'0'} onChange={(msg)=>console.log(msg)} />
-        </li>
-        <li>
-          <button>Обновить</button>
-        </li>
-      </ul>
+      <div className='all-filter-groups'>
+
+        <FilterGroup
+          header={'Опыт работы'}
+          parameter={EXPERIENCE}
+          handleChange={path => this.takeNewPath(path, 'exp')}
+        />
+
+        <FilterGroup
+          header={'Тип занятости'}
+          parameter={EMPLOYMENT}
+          handleChange={path => this.takeNewPath(path, 'empl')}
+        />
+
+        <FilterGroup
+          header={'График работы'}
+          parameter={SCHEDULE}
+          handleChange={path => this.takeNewPath(path, 'schedule')}
+        />
+
+      <FilterGroup
+        header={'Зарплата'}
+        parameter={SALARY}
+        handleChange={path => this.takeNewPath(path, 'salary')}
+        />
+
+        <FilterGroup
+          header={'Сортировать по'}
+          parameter={SORT_TYPE}
+          handleChange={path => this.takeNewPath(path, 'sortType')}
+        />
+
+        <div>
+          <button onClick={() => handleSubmit(newPath)}>
+            Обновить
+          </button>
+        </div>
+
+      </div>
     );
   }
 };
 
-export default Filters;
+const mapDispatchToProps = dispatch => ({
+  handleSubmit: newPath => dispatch(fetchData(newPath, 0))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Filters);

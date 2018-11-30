@@ -1,127 +1,133 @@
-const EXPERIENCE_SELECTOR = [
+export const EXPERIENCE = [
   {
-    value:'0',
-    text: 'Не имеет значения'
+    value: ' ',
+    text: 'Не имеет значения',
   },
   {
-    value:'1',
-    text: 'Нет опыта'
+    value: '&experience=noExperience',
+    text: 'Нет опыта',
   },
   {
-    value:'2',
+    value:'&experience=between1And3',
     text: 'От 1 года до 3 лет'
   },
   {
-    value:'3',
+    value:'&experience=between3And6',
     text: 'От 3 до 6 лет'
   },
   {
-    value:'4',
+    value:'&experience=moreThan6',
     text: 'Более 6 лет'
   }
 ];
 
-const EMPLOYMENT_SELECTOR = [
+export const EMPLOYMENT = [
   {
-    value:'0',
+    value:'&employment=full',
     text: 'Полная занятость'
   },
   {
-    value:'1',
+    value:'&employment=part',
     text: 'Частичная занятость'
   },
   {
-    value:'2',
-    text: 'Проектная/Временная работа'
+    value:'&employment=project',
+    text: 'Проектная работа'
   },
   {
-    value:'3',
+    value:'&employment=volunteer',
     text: 'Волонтёрство'
   },
   {
-    value:'4',
+    value:'&employment=probation',
     text: 'Стажировка'
   }
 ];
 
-const SCHEDULE_SELECTOR = [
+export const SCHEDULE = [
   {
-    value:'0',
+    value:'&schedule=fullDay',
     text: 'Полный день'
   },
   {
-    value:'1',
+    value:'&schedule=shift',
     text: 'Сменный график'
   },
   {
-    value:'2',
+    value:'&schedule=flexible',
     text: 'Гибкий график'
   },
   {
-    value:'3',
+    value:'&schedule=remote',
     text: 'Удалённая работа'
   },
   {
-    value:'4',
+    value:'&schedule=flyInFlyOut',
     text: 'Ваxтовый метод'
   }
 ];
 
-const SITY_SELECTOR = [
+export const CITY = [
   {
-    value:'0',
+    value:'&area=1',
     text: 'Москва'
   },
   {
-    value:'1',
+    value:'&area=2',
     text: 'Санкт-Петербург'
   },
   {
-    value:'2',
-    text: 'Казань'
+    value:'&area=3',
+    text: 'Екатеринбург'
   },
   {
-    value:'3',
-    text: 'Иной'
-  }
+    value:'&area=88',
+    text: 'Казань'
+  },
 ];
 
-const SORT_TYPE_SELECTOR = [
+export const SORT_TYPE = [
   {
-    value:'0',
+    value:'&vacancy_search_order=publication_time',
     text: 'Дате изменения'
   },
   {
-    value:'1',
+    value:'&vacancy_search_order=salary_desc',
     text: 'Убыванию зарплат'
   },
   {
-    value:'2',
+    value:'&vacancy_search_order=salary_asc',
     text: 'Возрастанию зарплат'
   },
   {
-    value:'3',
+    value:'&vacancy_search_order=relevance',
     text: 'Соответствию'
   }
 ];
 
-const DISPLAY_BY_SELECTOR = [
+export const SALARY = [
   {
-    value:'0',
-    text: 'Месяц'
+    value:'&only_with_salary=true',
+    text: 'Указана'
   },
   {
-    value:'1',
-    text: 'Неделю'
+    value:'&salary=40000',
+    text: 'от 40 000 руб.'
   },
   {
-    value:'2',
-    text: 'Последние 3 дня'
+    value:'&salary=60000',
+    text: 'от 60 000 руб.'
   },
   {
-    value:'3',
-    text: 'Сутки'
+    value:'&salary=85000',
+    text: 'от 85 000 руб.'
+  },
+  {
+    value:'&salary=110000',
+    text: 'от 110 000 руб.'
+  },
+  {
+    value:'&salary=130000',
+    text: 'от 130 000 руб.'
   }
 ];
-
-export { EXPERIENCE_SELECTOR, EMPLOYMENT_SELECTOR, SCHEDULE_SELECTOR, SITY_SELECTOR, SORT_TYPE_SELECTOR, DISPLAY_BY_SELECTOR };

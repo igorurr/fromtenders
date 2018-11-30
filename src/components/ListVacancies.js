@@ -39,7 +39,8 @@ class ListVacancies extends React.Component {
   }
 
   nextPage() {
-    this.props.loadNextPage(this.props.page + 1);
+    const { search, page, loadNextPage } = this.props;
+    loadNextPage(search, page + 1);
   }
 
   render() {
@@ -74,13 +75,14 @@ ListVacancies.propTypes = {
 
 
 const mapStateToProps = state => ({
+  search: state.receivedData.search,
   isFetching: state.receivedData.isFetching,
   page: state.receivedData.loadedPage,
   items: state.receivedData.items,
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadNextPage: page => dispatch(fetchData(page)),
+  loadNextPage: (search, page) => dispatch(fetchData(search, page)),
   addIfNotExist: vac => dispatch(addIfNotExist(vac)),
   removeIfExist: vac => dispatch(removeIfExist(vac)),
 });
