@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
-import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
-
 import { LeftBar } from './index';
 import { MapVacancies } from '../components'
 

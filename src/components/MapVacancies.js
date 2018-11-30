@@ -1,47 +1,43 @@
 import React, {Component} from 'react';
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import { YMaps, Map } from 'react-yandex-maps';
 import {connect} from "react-redux";
 
 import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
+import { MapPlacemarks } from './index'
 
 
 class MapVacancies extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this);
+    this.initMapObject = this.initMapObject.bind(this);
+
+  }
+
+  initMapObject(Map){
+    if(Map==null)
+      return;
+
+    const dfsdf = this;
+    Map.events.add('actionend', function (e) {
+      console.log(Map.getBounds());
+    });
   }
 
   render() {
-    const items = this.props.items.filter((el)=>el.address!=null);
-
     return (
       <content className={"map-vacancies"}>
-        <YMaps>
+        <YMaps preload>
           <Map
             defaultState={{
-              center: [55.75, 37.57],
-              zoom: 9
+              center: [55.76, 37.59],
+              zoom: 11
             }}
+            instanceRef={this.initMapObject}
             width={"100%"}
             height={"100%"}
           >
-            {items.map((el,i,o)=>(
-                <Placemark
-                  key={el.id}
-                  modules={['geoObject.addon.balloon']}
-                  defaultGeometry={[el.address.lat, el.address.lng]}
-                  properties={{
-                    balloonContentHeader : el.name,
-                    balloonContentBody :
-                    '<div class="baloon-body">' +
-                    '<p>Описание:' +el.description+ '</p>' +
-                    '<p>Описание:' +el.description+ '</p>' +
-                    '</div>'
-                  }}
-                />
-              )
-            )}
+            <MapPlacemarks items={this.props.items} />
           </Map>
         </YMaps>
       </content>
