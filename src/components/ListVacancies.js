@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 
 import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
-import {fetchData} from "../actions/fetchData";
+import { fetchData } from '../actions/fetchData';
 
 
 class RowComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
+    const { item, onAdd, onRemove } = this.props;
     return (
       <li>
-        {this.props.item.name} from {this.props.item.position} to {this.props.item.description}
-        <button onClick={this.props.onAdd}>Add</button>
-        <button onClick={this.props.onRemove}>Remove</button>
+        {item.name}
+        <button onClick={onAdd}>Add</button>
+        <button onClick={onRemove}>Remove</button>
       </li>
     )
   }
@@ -46,14 +43,19 @@ class ListVacancies extends React.Component {
   }
 
   render() {
+    const { items, page, addIfNotExist, removeIfExist } = this.props;
     return (
       <div onScroll={this.handleScroll}>
-        {this.props.page}
+        {page}
         <button onClick={this.nextPage} type="button">Next</button>
         <ul>
-          {this.props.items.map(
+          {items.map(
             item => (
-              <RowComponent key={item.id} item={item} onAdd={this.props.addIfNotExist} onRemove={this.props.removeIfExist}/>
+              <RowComponent
+                key={item.id}
+                item={item}
+                onAdd={() => addIfNotExist(item)}
+                onRemove={() => removeIfExist(item)}/>
             ))}
         </ul>
       </div>
