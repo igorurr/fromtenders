@@ -3,14 +3,16 @@ import { addIfNotExist, removeIfExist } from '../../actions/selectVacancy';
 import { connect } from 'react-redux';
 
 
-class LeftBarVacancy extends Component {
+class VacancyBar extends Component {
 
   onClickSelected = () => {
     const { item, addIfNotExist, removeIfExist } = this.props;
-    if (item.isSelected)
+
+    if (item.isSelected) {
       removeIfExist(item);
-    else
+    } else {
       addIfNotExist(item);
+    }
   }
 
   render() {
@@ -35,12 +37,16 @@ class LeftBarVacancy extends Component {
   }
 };
 
+const mapStateToProps = state => ({
+  selectedItems: state.selectedVacancies
+});
+
 const mapDispatchToProps = dispatch => ({
   addIfNotExist: vac => dispatch(addIfNotExist(vac)),
   removeIfExist: vac => dispatch(removeIfExist(vac)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
-)(LeftBarVacancy);
+)(VacancyBar);

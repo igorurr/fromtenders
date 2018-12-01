@@ -1,27 +1,9 @@
 import React, { Component } from 'react';
 import Transition from 'react-transition-group/Transition';
+import Filter from './Filter';
 import '../../styles/FilterGroup.css';
 
-const Filter = ({ item, activeValue, updateFilter }) => (
-  <div>
-    {
-      item.map(el => (
-        <div
-          key={el.text}
-          className={activeValue === el.value ? 'filter active' : 'filter'}
-          onClick={() => {
-            activeValue === el.value
-              ? updateFilter('')
-              : updateFilter(el.value)}}
-        >
-          {el.text}
-        </div>
-      ))
-    }
-  </div>
-)
-
-class OneFilterGroup extends Component {
+class FilterGroup extends Component {
   constructor(props) {
     super(props);
 
@@ -53,7 +35,7 @@ class OneFilterGroup extends Component {
       overflow: 'hidden',
     }
 
-    const transitionStyles = {
+    const transitionStyle = {
       entering: { height: 0 },
       entered:  { height: `${parameter.length * 20 + 10}px` }
     };
@@ -63,10 +45,7 @@ class OneFilterGroup extends Component {
 
         <header onClick={() => this.showGroup()}>
           <b>{header}</b>
-          { showGroup
-            ? <div className='up' />
-            : <div className='down'/>
-          }
+          <div className={ showGroup ? 'up' : 'down' } />
         </header>
 
         <content>
@@ -74,8 +53,8 @@ class OneFilterGroup extends Component {
             {state => (
               <div
                 style={{
-                ...defaultStyle,
-                ...transitionStyles[state]
+                  ...defaultStyle,
+                  ...transitionStyle[state]
                 }}
               >
                 <Filter
@@ -93,4 +72,4 @@ class OneFilterGroup extends Component {
   }
 };
 
-export default OneFilterGroup;
+export default FilterGroup;

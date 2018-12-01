@@ -13,14 +13,14 @@ const removeVacancy = vac => ({
 
 
 export const addIfNotExist = vac => (dispatch, getState) => {
-  const { selected } = getState().selectedVacancies;
+  const selected = getState().selectedVacancies;
   if (selected.indexOf(vac) === -1) {
     dispatch(addVacancy(vac));
   }
 };
 
 export const removeIfExist = vac => (dispatch, getState) => {
-  const { selected } = getState().selectedVacancies;
+  const selected = getState().selectedVacancies;
   if (selected.indexOf(vac) !== -1) {
     dispatch(removeVacancy(vac));
   }

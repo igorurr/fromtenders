@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { Placemark } from 'react-yandex-maps';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import { updateMapCenter } from '../../actions/updateMapCenter';
 import { compare } from '../../helpers';
 
 
-class MapPlacemark extends Component {
+class PlacemarkSingle extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      active: this.isActiveAddress()
+      active: this.isActiveCenter()
     };
 
-    this.getrefs = this.getrefs.bind(this);
+    this.getRefs = this.getRefs.bind(this);
     this.update = this.update.bind(this);
   }
 
-  isActiveAddress() {
+  isActiveCenter() {
     const { address, activeCenter } = this.props;
     return compare(address, activeCenter);
   }
@@ -26,38 +26,32 @@ class MapPlacemark extends Component {
   update(e) {
     const { address, updateMapCenter } = this.props;
     updateMapCenter (
-      this.isActiveAddress() ? [] : address
+      this.isActiveCenter() ? [] : address
     );
   }
 
-  getrefs(Placemark){
-    if(Placemark == null)
-      return;
-
-    Placemark.events.add('click', this.update);
+  getRefs(Placemark){
+    if (Placemark !== null) {
+      Placemark.events.add('click', this.update);
+    }
   }
 
-  /*
-  properties={{
-          iconContent: '5'
-        }}
-   */
   render() {
     return (
       <Placemark
-        instanceRef={this.getrefs}
+        instanceRef={this.getRefs}
         defaultGeometry={this.props.address}
         options={{
-          iconColor: this.isActiveAddress() ? '#ff6d43' : '#708eff'
+          iconColor: this.isActiveCenter() ? '#ff6d43' : '#708eff'
         }}
       />
     );
   }
 };
 
-
+/// +++ this.prop.address
 const mapStateToProps = state => ({
-  activeCenter: state.mapCenter.activeCenter
+  activeCenter: state.mapCenter
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -67,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MapPlacemark);
+)(PlacemarkSingle);

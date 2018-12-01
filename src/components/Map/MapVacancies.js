@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { YMaps, Map } from 'react-yandex-maps';
 import { connect } from 'react-redux';
 
-import { MapPlacemarks, LeftBarVacancies } from '../index';
+import PlacemarkGroup from './PlacemarkGroup';
+import VacancyBarHolder from './VacancyBarHolder';
 import { updateMapCenter } from '../../actions/updateMapCenter';
 import { fetchData } from '../../actions/fetchData';
 
@@ -26,8 +27,8 @@ class MapVacancies extends Component {
   };
 
   getItemsFromAddress(items, activeAddress) {
-    return items.filter(
-      el => el.address.lat === activeAddress[0] && el.address.lng === activeAddress[1]
+    return items.filter(el =>
+      el.address.lat === activeAddress[0] && el.address.lng === activeAddress[1]
     );
   };
 
@@ -39,21 +40,21 @@ class MapVacancies extends Component {
     });
   };
 
-  updateCurrentAddress( bounds ) {
-    // [bottom_lat, left_lng]
-    // [top_lat, right_lng]
-    console.log(bounds)
-
+  updateCurrentAddress(bounds) {
     let bottom_lat = bounds[0][0],
-          left_lng = bounds[0][1],
-          top_lat = bounds[1][0],
-          right_lng = bounds[1][1]
+        left_lng = bounds[0][1],
+        top_lat = bounds[1][0],
+        right_lng = bounds[1][1]
 
-    const path = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
-    const newPath = `${path}&top_lat=${top_lat}&bottom_lat=${bottom_lat}&left_lng=${left_lng}&right_lng=${right_lng}`;
-    // this.props.updateMapCenter([]);
-    // Надо, чтобы все в редаксе видно было. Не знаю, какие именно bounds сюда отправлять, но надо.
-    this.props.takeCoor(newPath);
+    const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
+    const newPath = `${origPath}
+      &top_lat=${top_lat}&bottom_lat=${bottom_lat}&left_lng=${left_lng}&right_lng=${right_lng}`;
+
+    const lat = (bottom_lat + top_lat) / 2;
+    const lng = (left_lng + right_lng) / 2;
+
+    this.props.updateMapCenter([lat, lng]);
+    this.props.fetchData(newPath);
   };
 
   initMapObject(Map) {
@@ -67,17 +68,13 @@ class MapVacancies extends Component {
       let timeOut = setTimeout(() => {
         if (!moved)
           this.updateCurrentAddress(Map.getBounds());
-          this.setState({
-            lastTimeOut: null
-          });
+          this.setState({ lastTimeOut: null });
       }, 2000);
 
-      if( lastTimeOut !== null )
+      if (lastTimeOut !== null)
         clearInterval(lastTimeOut);
 
-      this.setState({
-        lastTimeOut: timeOut
-      });
+      this.setState({ lastTimeOut: timeOut });
     });
 
     Map.events.add('actionbegin', e => {
@@ -89,12 +86,12 @@ class MapVacancies extends Component {
 
   render() {
     const items = this.cleareNullAddress(this.props.items)
-    const itemsFromCurrentAddres =
-      this.checkItemsForSelected(this.getItemsFromAddress(items,this.props.activeAddress));
+    const itemsFromCurrentAddress =
+      this.checkItemsForSelected(this.getItemsFromAddress(items, this.props.activeAddress));
 
     return (
       <content className="map-vacancies">
-        <LeftBarVacancies items={itemsFromCurrentAddres} />
+        <VacancyBarHolder items={itemsFromCurrentAddress} />
         <YMaps preload>
           <Map
             defaultState={{
@@ -105,7 +102,7 @@ class MapVacancies extends Component {
             width={"100%"}
             height={"100%"}
           >
-            <MapPlacemarks items={items} />
+            <PlacemarkGroup items={items} />
           </Map>
         </YMaps>
       </content>
@@ -113,15 +110,16 @@ class MapVacancies extends Component {
   }
 };
 
+
 const mapStateToProps = state => ({
   items: state.receivedData.items,
-  selectedItems: state.selectedVacancies.selected,
-  activeAddress: state.mapCenter.activeCenter,
+  selectedItems: state.selectedVacancies,
+  activeAddress: state.mapCenter,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapCenter: newAddress => dispatch(updateMapCenter(newAddress)),
-  takeCoor: path => dispatch(fetchData(path, 0))
+  updateMapCenter: center => dispatch(updateMapCenter(center)),
+  fetchData: path => dispatch(fetchData(path, 0))
 });
 
 export default connect(

@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import OneFilterGroup from './OneFilterGroup';
+import FilterGroup from './FilterGroup';
 import { fetchData } from '../../actions/fetchData';
 import {
   EXPERIENCE,
@@ -9,7 +9,7 @@ import {
   SCHEDULE,
   SORT_TYPE,
   SALARY
-} from './constants';
+} from './consts';
 
 
 class AllFilterGroups extends Component {
@@ -25,53 +25,53 @@ class AllFilterGroups extends Component {
     };
   }
 
-  takeNewPath = (path, statePart) =>
+  takeNewSearch = (search, statePart) =>
     this.setState({
-      [statePart]: path
+      [statePart]: search
     });
 
   render() {
     const { exp, empl, schedule, sortType, salary } = this.state;
     const { handleSubmit } = this.props;
 
-    const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
-    const newPath = `${origPath}${exp}${empl}${schedule}${salary}${sortType}`;
+    const origSearch = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
+    const newSearch = `${origSearch}${exp}${empl}${schedule}${salary}${sortType}`;
 
     return (
       <div className='all-filter-groups'>
 
-        <OneFilterGroup
+        <FilterGroup
           header={'Опыт работы'}
           parameter={EXPERIENCE}
-          handleChange={path => this.takeNewPath(path, 'exp')}
+          handleChange={search => this.takeNewSearch(search, 'exp')}
         />
 
-        <OneFilterGroup
+        <FilterGroup
           header={'Тип занятости'}
           parameter={EMPLOYMENT}
-          handleChange={path => this.takeNewPath(path, 'empl')}
+          handleChange={search => this.takeNewSearch(search, 'empl')}
         />
 
-        <OneFilterGroup
+        <FilterGroup
           header={'График работы'}
           parameter={SCHEDULE}
-          handleChange={path => this.takeNewPath(path, 'schedule')}
+          handleChange={search => this.takeNewSearch(search, 'schedule')}
         />
 
-        <OneFilterGroup
+        <FilterGroup
           header={'Зарплата'}
           parameter={SALARY}
-          handleChange={path => this.takeNewPath(path, 'salary')}
+          handleChange={search => this.takeNewSearch(search, 'salary')}
         />
 
-        <OneFilterGroup
+        <FilterGroup
           header={'Сортировать по'}
           parameter={SORT_TYPE}
-          handleChange={path => this.takeNewPath(path, 'sortType')}
+          handleChange={search => this.takeNewSearch(search, 'sortType')}
         />
 
         <div>
-          <button onClick={() => handleSubmit(newPath)}>
+          <button onClick={() => handleSubmit(newSearch)}>
             Обновить
           </button>
         </div>
@@ -82,7 +82,7 @@ class AllFilterGroups extends Component {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: newPath => dispatch(fetchData(newPath, 0))
+  handleSubmit: newSearch => dispatch(fetchData(newSearch, 0))
 });
 
 export default connect(

@@ -1,7 +1,8 @@
 import {
-  REQUEST_DATA,
+  REQUEST_NEXT_DATA,
   REQUEST_ANOTHER_DATA,
   RECEIVE_DATA,
+  RECEIVE_FAIL,
 } from '../actions/fetchData';
 
 const initialState = {
@@ -10,15 +11,17 @@ const initialState = {
   loadedPage: 0,
   items: [],
   receivedAt: '',
+  fail: false
 };
 
 const receivedData = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_DATA:
+    case REQUEST_NEXT_DATA:
       return {
         ...state,
         search: action.search,
         isFetching: true,
+        fail: false,
       };
     case REQUEST_ANOTHER_DATA:
       return {
@@ -26,6 +29,7 @@ const receivedData = (state = initialState, action) => {
         items: [],
         search: action.search,
         isFetching: true,
+        fail: false
       };
     case RECEIVE_DATA:
       return {
@@ -35,6 +39,11 @@ const receivedData = (state = initialState, action) => {
         loadedPage: action.page,
         receivedAt: action.receivedAt,
       };
+    case RECEIVE_FAIL:
+      return {
+        ...state,
+        fail: true,
+      }
     default:
       return state;
   }

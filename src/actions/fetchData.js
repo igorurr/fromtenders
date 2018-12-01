@@ -1,9 +1,12 @@
-export const REQUEST_DATA = 'REQUEST_DATA';
+import { vacancyRequestAdapter } from '../helpers';
+
+export const REQUEST_NEXT_DATA = 'REQUEST_NEXT_DATA';
 export const REQUEST_ANOTHER_DATA = 'REQUEST_ANOTHER_DATA';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
+export const RECEIVE_FAIL = 'RECEIVE_FAIL';
 
-const requestData = search => ({
-  type: REQUEST_DATA,
+const requestNextData = search => ({
+  type: REQUEST_NEXT_DATA,
   search,
 });
 
@@ -23,37 +26,26 @@ const recieveData = (data, page) => {
   };
 };
 
-export const fetchData = (search, page) => (dispatch) => {
-  if (page === 0) {
-    dispatch(requestAnotherData(search))
-  } else {
-    dispatch(requestData(search));
-  }
+const receiveFail = () => ({
+  type: RECEIVE_FAIL,
+})
 
-  return fetch(`${search}&page=${page}`)
-    .then(
-      response => response.json(),
-      (error) => {
-        throw Error(error.message);
-      },
-    )
-    .then((resolve) => {
-      let info
-      if (resolve.items === undefined || !resolve.items.length) {
-        info = []
-      }
-      else {
-        info = resolve.items.map(i => ({
-          id: i.id,
-          name: i.name,
-          salary: i.salary,
-          address: i.address,
-          employer: i.employer,
-          published_at: i.published_at,
-          alternate_url: i.alternate_url,
-          key_values: i.key_values,
-        }))
-      };
-      dispatch(recieveData(info, page));
+
+export const fetchData = (search, page) => async (dispatch) => {
+  page === 0
+    ? dispatch(requestAnotherData(search))
+    : dispatch(requestNextData(search))
+
+  return await fetch(`${search}&page=${page}`)
+    .then(res => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    })
+    .then(data => dispatch(
+        recieveData(vacancyRequestAdapter(data, page))
+      ))
+    .catch(error => {
+      dispatch(receiveFail())
+      throw new Error(error.statusText)
     });
 };
