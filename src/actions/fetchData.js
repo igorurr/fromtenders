@@ -13,7 +13,7 @@ const requestNextData = search => ({
 const requestAnotherData = search => ({
   type: REQUEST_ANOTHER_DATA,
   search,
-})
+});
 
 const recieveData = (data, page) => {
   const d = new Date();
@@ -28,13 +28,19 @@ const recieveData = (data, page) => {
 
 const receiveFail = () => ({
   type: RECEIVE_FAIL,
-})
+});
 
+
+export const defaultFetchData = () =>  {};
+
+export const mapFetchData = () =>  {};
+
+export const listFetchData = () =>  {};
 
 export const fetchData = (search, page) => async (dispatch) => {
   page === 0
     ? dispatch(requestAnotherData(search))
-    : dispatch(requestNextData(search))
+    : dispatch(requestNextData(search));
 
   return await fetch(`${search}&page=${page}`)
     .then(res => {
@@ -45,7 +51,8 @@ export const fetchData = (search, page) => async (dispatch) => {
         recieveData(vacancyRequestAdapter(data, page))
       ))
     .catch(error => {
-      dispatch(receiveFail())
+      dispatch(receiveFail());
+      console.log(error)
       throw new Error(error.statusText)
     });
 };

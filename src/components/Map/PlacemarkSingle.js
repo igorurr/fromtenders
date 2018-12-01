@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Placemark } from 'react-yandex-maps';
 import { connect } from 'react-redux';
 
-import { updateMapCenter } from '../../actions/updateMapCenter';
+import { updateMapSelectedAddress } from '../../actions/map';
 import { compare } from '../../helpers';
 
 
@@ -24,8 +24,8 @@ class PlacemarkSingle extends Component {
   }
 
   update(e) {
-    const { address, updateMapCenter } = this.props;
-    updateMapCenter (
+    const { address, updateMapPosition } = this.props;
+    updateMapPosition (
       this.isActiveCenter() ? [] : address
     );
   }
@@ -51,11 +51,11 @@ class PlacemarkSingle extends Component {
 
 /// +++ this.prop.address
 const mapStateToProps = state => ({
-  activeCenter: state.mapCenter
+  activeCenter: state.map
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapCenter: center => dispatch(updateMapCenter(center)),
+  updateMapPosition: center => dispatch(updateMapSelectedAddress(center)),
 });
 
 export default connect(

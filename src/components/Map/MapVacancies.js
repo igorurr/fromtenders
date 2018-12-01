@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import PlacemarkGroup from './PlacemarkGroup';
 import VacancyBarHolder from './VacancyBarHolder';
-import { updateMapCenter } from '../../actions/updateMapCenter';
+import { updateMapSelectedAddress } from '../../actions/map';
 import { fetchData } from '../../actions/fetchData';
 
 
@@ -27,6 +27,7 @@ class MapVacancies extends Component {
   };
 
   getItemsFromAddress(items, activeAddress) {
+    console.log(items, activeAddress)
     return items.filter(el =>
       el.address.lat === activeAddress[0] && el.address.lng === activeAddress[1]
     );
@@ -53,7 +54,7 @@ class MapVacancies extends Component {
     const lat = (bottom_lat + top_lat) / 2;
     const lng = (left_lng + right_lng) / 2;
 
-    this.props.updateMapCenter([lat, lng]);
+    this.props.updateMapSelectedAddress([lat, lng]);
     this.props.fetchData(newPath);
   };
 
@@ -70,7 +71,7 @@ class MapVacancies extends Component {
 
         this.updateCurrentAddress(Map.getBounds());
         this.setState({ lastTimeOut: null });
-      }, 2000);
+      }, 500);
 
       if (this.state.lastTimeOut != null)
         clearInterval(this.state.lastTimeOut);
@@ -82,7 +83,7 @@ class MapVacancies extends Component {
       this.setState({ moved: true });
     });
 
-    Map.events.add('click', e => this.props.updateMapCenter([]));
+    Map.events.add('click', e => this.props.updateMapSelectedAddress([]));
   }
 
   render() {
@@ -115,11 +116,12 @@ class MapVacancies extends Component {
 const mapStateToProps = state => ({
   items: state.receivedData.items,
   selectedItems: state.selectedVacancies,
-  activeAddress: state.mapCenter,
+  activeAddress: state.map.activeAddress,
+  visibleData: state.map.visibleData
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapCenter: center => dispatch(updateMapCenter(center)),
+  updateMapSelectedAddress: center => dispatch(updateMapSelectedAddress(center)),
   fetchData: path => dispatch(fetchData(path, 0))
 });
 
