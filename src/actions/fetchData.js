@@ -48,7 +48,7 @@ export const fetchData = (search, page) => async (dispatch) => {
       return res.json();
     })
     .then(data => dispatch(
-        recieveData(vacancyRequestAdapter(data, page))
+        recieveData(vacancyRequestAdapter(data),page)
       ))
     .catch(error => {
       dispatch(receiveFail());
