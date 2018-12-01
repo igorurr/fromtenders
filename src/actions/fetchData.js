@@ -35,7 +35,8 @@ export const fetchData = page => (dispatch) => {
         employer: i.employer,
         published_at: i.published_at,
         alternate_url: i.alternate_url,
-        snippet: i.snippet,
+        //snippet: i.snippet,
+        contacts: i.contacts,
       }));
       dispatch(recieveData(info, page));
     });
