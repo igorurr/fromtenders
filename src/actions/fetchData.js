@@ -38,16 +38,22 @@ export const fetchData = (search, page) => (dispatch) => {
       },
     )
     .then((resolve) => {
-      const info = resolve.items.map(i => ({
-        id: i.id,
-        name: i.name,
-        salary: i.salary,
-        address: i.address,
-        employer: i.employer,
-        published_at: i.published_at,
-        alternate_url: i.alternate_url,
-        key_values: i.key_values,
-      }));
+      let info
+      if (resolve.items === undefined || !resolve.items.length) {
+        info = []
+      }
+      else {
+        info = resolve.items.map(i => ({
+          id: i.id,
+          name: i.name,
+          salary: i.salary,
+          address: i.address,
+          employer: i.employer,
+          published_at: i.published_at,
+          alternate_url: i.alternate_url,
+          key_values: i.key_values,
+        }))
+      };
       dispatch(recieveData(info, page));
     });
 };

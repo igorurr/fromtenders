@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 
-import { Page1, Page2 } from './containers'
-import './App.css';
+import { Page1, Page2 } from '../containers'
+import '../css/App.css';
 
 const history = createBrowserHistory();
 

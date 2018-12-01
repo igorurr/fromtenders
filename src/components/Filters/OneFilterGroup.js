@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Transition from 'react-transition-group/Transition';
-import '../styles/FilterGroup.css';
+import '../../styles/FilterGroup.css';
 
 const Filter = ({ item, activeValue, updateFilter }) => (
   <div>
@@ -21,7 +21,7 @@ const Filter = ({ item, activeValue, updateFilter }) => (
   </div>
 )
 
-class FilterGroup extends Component {
+class OneFilterGroup extends Component {
   constructor(props) {
     super(props);
 
@@ -60,6 +60,7 @@ class FilterGroup extends Component {
 
     return (
       <div className='filter-group'>
+
         <header onClick={() => this.showGroup()}>
           <b>{header}</b>
           { showGroup
@@ -67,6 +68,7 @@ class FilterGroup extends Component {
             : <div className='down'/>
           }
         </header>
+
         <content>
           <Transition in={showGroup} timeout={50}>
             {state => (
@@ -82,13 +84,13 @@ class FilterGroup extends Component {
                   updateFilter={this.updateFilter}
                 />
               </div>
-            )
-          }
-        </Transition>
-          </content>
+            )}
+          </Transition>
+        </content>
+
       </div>
     );
   }
 };
 
-export default FilterGroup;
+export default OneFilterGroup;

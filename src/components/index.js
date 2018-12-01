@@ -1,6 +1,9 @@
-import Filters from './Filters';
+import AllFilterGroups from './Filters/AllFilterGroups';
 import ListVacancies from './ListVacancies';
-import MapVacancies from './MapVacancies';
-import FilterGroup from './FilterGroup';
+import LeftBarVacancy from './Map/LeftBarVacancy';
+import LeftBarVacancies from './Map/LeftBarVacancies';
+import MapVacancies from './Map/MapVacancies';
+import MapPlacemark from './Map/MapPlacemark';
+import MapPlacemarks from './Map/MapPlacemarks';
 
-export { Filters, ListVacancies, MapVacancies, FilterGroup  }
+export { AllFilterGroups, ListVacancies, LeftBarVacancy, LeftBarVacancies, MapVacancies, MapPlacemarks, MapPlacemark }

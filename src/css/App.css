@@ -1,0 +1,161 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+
+#app {
+  display: flex;
+}
+
+#app > aside {
+  width: 368px;
+  overflow-y: auto;
+}
+
+#app > content {
+  flex-grow: 1;
+}
+
+
+.disabled {
+  display: none;
+}
+
+
+#app > aside ul {
+  margin: 0;
+  padding: 0;
+}
+
+#app > aside > h2,
+#app > aside li,
+#app > aside .filters {
+  text-align: center;
+  display: block;
+}
+
+#app > aside li,
+#app > aside .filters {
+  font-size: 17px;
+}
+
+#app > aside > h2 {
+  margin: 53px 0;
+}
+
+#app > aside li {
+  margin: 19px 0;
+}
+
+#app > aside .filters {
+  margin: 53px 19px;
+}
+
+#app > aside .filters li {
+  display: flex;
+  font-size: 14px;
+}
+
+#app > aside .filters li header {
+  width: 111px;
+  text-align: left;
+}
+
+#app > aside .filters li content {
+  width: 187px;
+}
+
+
+.map-vacancies {
+}
+.map-vacancies .baloon-content p {
+   margin: 0;
+}
+
+
+.input-radio,
+.input-checkbox {
+  text-align: left;
+}
+
+
+.input-radio-elem,
+.input-checkbox-elem {
+  display: block;
+}
+
+.form-diappason content {
+  display: flex;
+}
+
+.form-diappason input {
+  width: 70px;
+  margin: 0 10px;
+  height: 19px;
+}
+
+
+.map-vacancies-address-container {
+  margin: 10px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  box-shadow: #0008 0 0 5px;
+  max-width: 40%;
+}
+
+.map-vacancies-address-container article {
+  margin: 5px;
+  padding: 5px;
+}
+
+.map-vacancies-address-container article content,
+.map-vacancies-address-container article footer {
+  max-width: calc(100% - 40px);
+}
+
+.map-vacancies-address-container article content a {
+  color:#000;
+}
+
+.map-vacancies-address-container article footer {
+  position: relative;
+  color: #777;
+  font-size: 14px;
+  margin: 3px;
+}
+
+.map-vacancies-address-container article footer p {
+  margin: 0;
+}
+
+.map-vacancies-address-container article footer a {
+  display: block;
+  position: absolute;
+  height: 24px;
+  width: 26px;
+  right: -40px;
+  bottom: -4px;
+  background: url('../img/star2.png');
+  cursor: pointer;
+}
+
+.map-vacancies-address-container article footer a.selected {
+  background: url('../img/star1.png');
+}

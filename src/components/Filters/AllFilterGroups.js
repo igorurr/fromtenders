@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-import { FilterGroup } from './index';
-import { fetchData } from '../actions/fetchData';
+import OneFilterGroup from './OneFilterGroup';
+import { fetchData } from '../../actions/fetchData';
 import {
   EXPERIENCE,
   EMPLOYMENT,
   SCHEDULE,
   SORT_TYPE,
   SALARY
-} from '../constants/Filters';
+} from './constants';
 
 
-class Filters extends Component {
+class AllFilterGroups extends Component {
   constructor(props) {
     super(props);
 
@@ -40,31 +40,31 @@ class Filters extends Component {
     return (
       <div className='all-filter-groups'>
 
-        <FilterGroup
+        <OneFilterGroup
           header={'Опыт работы'}
           parameter={EXPERIENCE}
           handleChange={path => this.takeNewPath(path, 'exp')}
         />
 
-        <FilterGroup
+        <OneFilterGroup
           header={'Тип занятости'}
           parameter={EMPLOYMENT}
           handleChange={path => this.takeNewPath(path, 'empl')}
         />
 
-        <FilterGroup
+        <OneFilterGroup
           header={'График работы'}
           parameter={SCHEDULE}
           handleChange={path => this.takeNewPath(path, 'schedule')}
         />
 
-      <FilterGroup
-        header={'Зарплата'}
-        parameter={SALARY}
-        handleChange={path => this.takeNewPath(path, 'salary')}
+        <OneFilterGroup
+          header={'Зарплата'}
+          parameter={SALARY}
+          handleChange={path => this.takeNewPath(path, 'salary')}
         />
 
-        <FilterGroup
+        <OneFilterGroup
           header={'Сортировать по'}
           parameter={SORT_TYPE}
           handleChange={path => this.takeNewPath(path, 'sortType')}
@@ -88,4 +88,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps,
-)(Filters);
+)(AllFilterGroups);
