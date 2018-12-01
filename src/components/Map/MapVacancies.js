@@ -44,7 +44,7 @@ class MapVacancies extends Component {
     let bottom_lat = bounds[0][0],
         left_lng = bounds[0][1],
         top_lat = bounds[1][0],
-        right_lng = bounds[1][1]
+        right_lng = bounds[1][1];
 
     const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
     const newPath = `${origPath}
@@ -58,21 +58,22 @@ class MapVacancies extends Component {
   };
 
   initMapObject(Map) {
-    const { lastTimeOut, moved } = this.state;
-
-    if (Map == null) return;
+    if (Map == null)
+      return;
 
     Map.events.add('actionend', e => {
       this.setState({ moved: false });
 
       let timeOut = setTimeout(() => {
-        if (!moved)
-          this.updateCurrentAddress(Map.getBounds());
-          this.setState({ lastTimeOut: null });
+        if (this.state.moved)
+          return;
+
+        this.updateCurrentAddress(Map.getBounds());
+        this.setState({ lastTimeOut: null });
       }, 2000);
 
-      if (lastTimeOut !== null)
-        clearInterval(lastTimeOut);
+      if (this.state.lastTimeOut != null)
+        clearInterval(this.state.lastTimeOut);
 
       this.setState({ lastTimeOut: timeOut });
     });
