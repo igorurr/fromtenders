@@ -3,6 +3,8 @@ import {
   REMOVE_VACANCY
 } from '../constants/selectVacancy';
 
+import { updateCurrentSelectedVacancies } from '../localStorrage';
+
 const addVacancy = vac => ({
   type: ADD_VACANCY,
   vac,
@@ -16,14 +18,20 @@ const removeVacancy = vac => ({
 
 export const addIfNotExist = vac => (dispatch, getState) => {
   const selected = getState().selectedVacancies;
-  if (selected.indexOf(vac) === -1) {
+
+  if ( selected.find( (el)=>el.id === vac.id ) === undefined ) {
     dispatch(addVacancy(vac));
+
+    updateCurrentSelectedVacancies(getState().selectedVacancies);
   }
 };
 
 export const removeIfExist = vac => (dispatch, getState) => {
   const selected = getState().selectedVacancies;
-  if (selected.indexOf(vac) !== -1) {
+
+  if ( selected.find( (el)=>el.id === vac.id ) !== undefined ) {
     dispatch(removeVacancy(vac));
+
+    updateCurrentSelectedVacancies(getState().selectedVacancies);
   }
 };

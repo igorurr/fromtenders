@@ -3,12 +3,16 @@ import {
   REMOVE_VACANCY
 } from '../constants/selectVacancy';
 
-const selectedVacancies = (state = [], action) => {
+import { currentSelectedVacancies } from '../localStorrage';
+
+const initialState = currentSelectedVacancies;
+
+const selectedVacancies = (state = initialState, action) => {
   switch (action.type) {
     case ADD_VACANCY:
       return [...state, action.vac];
     case REMOVE_VACANCY:
-      return state.filter(s => s !== action.vac);
+      return state.filter(s => s.id !== action.vac.id);
     default:
       return state;
   }
