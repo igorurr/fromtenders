@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
 import { listFetchData } from '../actions/list';
+import getSearchedVacancies from '../selectors/getSearchedVacancies';
 
 
 class RowComponent extends React.Component {
@@ -77,7 +78,7 @@ ListVacancies.propTypes = {
 const mapStateToProps = state => ({
   isFetching: state.receivedData.isFetching,
   page: state.list.page,
-  items: state.receivedData.items,
+  items: getSearchedVacancies(state),
 });
 
 const mapDispatchToProps = dispatch => ({

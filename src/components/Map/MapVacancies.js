@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PlacemarkGroup from './PlacemarkGroup';
 import VacancyBarHolder from './VacancyBarHolder';
 import { updateMapSelectedAddress, mapFetchData } from '../../actions/map';
+import getSearchedVacancies from '../../selectors/getSearchedVacancies';
 
 
 class MapVacancies extends Component {
@@ -143,7 +144,7 @@ class MapVacancies extends Component {
 
 
 const mapStateToProps = state => ({
-  items: state.receivedData.items,
+  items: getSearchedVacancies(state),
   selectedItems: state.selectedVacancies,
   activeAddress: state.map.activeAddress,
   visibleData: state.map.visibleData

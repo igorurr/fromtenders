@@ -16,7 +16,7 @@ const Header = ({ value, onSearch }) => {
 
       <input
         type='text'
-        placeholder='Искать по ключевым навыки'
+        placeholder='Искать по названию'
         value={value}
         onChange={e => onSearch(e.target.value)}
       />
