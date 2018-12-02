@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
-import { listFetchData } from '../actions/list';
-import getSearchedVacancies from '../selectors/getSearchedVacancies';
+import { addIfNotExist, removeIfExist } from '../../actions/selectVacancy';
+import { listFetchData } from '../../actions/list';
+import getSearchedVacancies from '../../selectors/getSearchedVacancies';
 
 
 class RowComponent extends React.Component {
