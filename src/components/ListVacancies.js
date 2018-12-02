@@ -3,44 +3,47 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
-import { fetchData } from '../actions/fetchData';
+import { listFetchData } from '../actions/list';
 
 class Vacancy extends React.Component {
   render() {
     const { item } = this.props;
     return (
-      <div>
-          <b>{item.name}</b>
-          <div>
-            Зарплата
-            {item.salary === null || item.salary.from === null ? 
-              ' обсуждается' : 
-              <span>
-                {' от'} {item.salary.from} {item.salary.to === null ? '' : <span> до {item.salary.to}</span>}
-              </span>
-            }
-          </div>
-          <div>
-          {item.address === null ? '' : 
-            <span>
-            {item.address.city === null ? '' : <span> г. {item.address.city}</span>}
-            </span>
-          }
-          </div>
-    </div>
+      <article>
+        <content>
+          <a href={item.alternate_url} target="blank">{item.name}</a>
+        </content>
+          
+        <footer>
+          <p>{item.employer.name}</p>
+        </footer>
+    </article>
     );
   }
 };
 
 class RowComponent extends React.Component {
+  onClickSelected = () => {
+    const { item, onAdd, onRemove } = this.props;
+    if (item.isSelected) {
+      onRemove(item);
+    } else {
+      onAdd(item);
+    }
+  }
+
   render() {
     const { item, onAdd, onRemove } = this.props;
     return (
-      <li>
-        <Vacancy item={item} />
-        <button onClick={onAdd}>Add</button>
-        <button onClick={onRemove}>Remove</button>
-      </li>
+      <li className='list-vacancies'>
+        <Vacancy item={item} onAdd={onAdd} />
+        <a
+          className={ item.isSelected ? 'selected' : ''}
+          onClick={() => this.onClickSelected()}
+        />
+        <button onClick={() => onAdd(item)}>Add</button>
+        <button onClick={() => onRemove(item)}>Remove</button>
+    </li>
     );
   }
 };
@@ -54,17 +57,7 @@ class ListVacancies extends React.Component {
   }
 
   handleScroll() {
-    /*const bottomScrollMark = 200;
-    const heightWithScroll = Math.max(
-      document.body.scrollHeight, document.documentElement.scrollHeight,
-      document.body.offsetHeight, document.documentElement.offsetHeight,
-      document.body.clientHeight, document.documentElement.clientHeight
-    );
-    const scrollHeight = heightWithScroll - document.documentElement.clientHeight;
-    const scrollTop = window.pageYOffset - scrollHeight;
-
-    if (this.props.isFetching || scrollTop < -200 ) {*/
-    const scrollTest = document.getElementsByClassName('scrollTest')[0];
+    const scrollTest = document.getElementsByClassName('scrollTest')[1];
     const bottomScrollMark = 10;
     const currentBottomScroll = scrollTest.scrollHeight - scrollTest.scrollTop - scrollTest.clientHeight;
 
@@ -75,29 +68,17 @@ class ListVacancies extends React.Component {
   }
 
   nextPage() {
-    this.props.loadNextPage(this.props.page + 1);
+    const { page, loadNextPage } = this.props;
+    loadNextPage(page + 1);
   }
 
   render() {
-    const { items, page, addIfNotExist, removeIfExist, selected } = this.props;
-    //const { selected } = store.getState().selectedVacancies;
+    const { items, page, addIfNotExist, removeIfExist, selectedItems } = this.props;
     return (
       <div>
-        <div onScroll={this.handleScroll} className='scrollTest'>
-          <ol>
-            {items.map(
-              item => (
-                <RowComponent
-                  key={item.id}
-                  item={item}
-                  onAdd={() => addIfNotExist(item)}
-                  onRemove={() => removeIfExist(item)}/>
-              ))}
-          </ol>
-        </div>
         <div className='scrollTest'>
           <ol>
-            {selected.map(
+            {selectedItems.map(
               item => (
                 <li key={item.id}>
                   <Vacancy item={item} />
@@ -105,9 +86,19 @@ class ListVacancies extends React.Component {
               ))}
           </ol>
         </div>
+        <div onScroll={this.handleScroll} className='scrollTest'>
+          <ol>
+            {items.map(
+              item => (
+                <RowComponent
+                  key={item.id}
+                  item={item}
+                  onAdd={addIfNotExist}
+                  onRemove={removeIfExist}/>
+              ))}
+          </ol>
+        </div>
         <div>Страница {page + 1}</div>
-        {//<button onClick={this.nextPage} type="button">Next</button>
-        }
       </div>
     );
   }
@@ -126,13 +117,13 @@ ListVacancies.propTypes = {
 
 const mapStateToProps = state => ({
   isFetching: state.receivedData.isFetching,
-  page: state.receivedData.loadedPage,
+  page: state.list.page,
   items: state.receivedData.items,
-  selected: state.selectedVacancies.selected,
+  selectedItems: state.selectedVacancies,
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadNextPage: page => dispatch(fetchData(page)),
+  loadNextPage: (page) => dispatch(listFetchData(page)),
   addIfNotExist: vac => dispatch(addIfNotExist(vac)),
   removeIfExist: vac => dispatch(removeIfExist(vac)),
 });

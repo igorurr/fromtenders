@@ -1,21 +1,18 @@
-import { ADD_VACANCY, REMOVE_VACANCY } from '../actions/selectVacancy';
+import {
+  ADD_VACANCY,
+  REMOVE_VACANCY
+} from '../constants/selectVacancy';
 
-const initialState = {
-  selected: [],
-};
+import { currentSelectedVacancies } from '../localStorrage';
+
+const initialState = currentSelectedVacancies;
 
 const selectedVacancies = (state = initialState, action) => {
   switch (action.type) {
     case ADD_VACANCY:
-      return {
-        ...state,
-        selected: [...state.selected, action.vac],
-      };
+      return [...state, action.vac];
     case REMOVE_VACANCY:
-      return {
-        ...state,
-        selected: state.selected.filter(s => s !== action.vac),
-      };
+      return state.filter(s => s.id !== action.vac.id);
     default:
       return state;
   }

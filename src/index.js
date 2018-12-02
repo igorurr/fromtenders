@@ -3,11 +3,8 @@ import { render } from 'react-dom';
 
 import { Provider } from 'react-redux';
 import store from './store';
-import { fetchData } from './actions/fetchData';
 
 import App from './components/App';
-
-store.dispatch(fetchData(0));
 
 render(
   <Provider store={store}>

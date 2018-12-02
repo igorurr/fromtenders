@@ -1,0 +1,64 @@
+.filter-group {
+  margin: 10px;
+  width: 200px;
+}
+
+.filter {
+  opacity: 0.5;
+  cursor: pointer;
+  font-size: 90%;
+  padding: 2px;
+}
+
+.filter:hover {
+  opacity: 1;
+}
+
+.active {
+  opacity: 1;
+}
+
+.active:hover {
+  background: gainsboro;
+  opacity: 1;
+}
+
+
+.active:after {
+  float: right;
+  content: '\2716';
+  opacity: 0.3;
+}
+
+header {
+  height: 25px;
+  cursor: pointer;
+}
+
+header > div {
+  opacity: 0;
+}
+
+header:hover > div {
+  opacity: 0.5;
+}
+
+.up {
+  float: right;
+  margin: 5px 3px 0 0;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 10px solid black;
+}
+
+.down {
+  float: right;
+  margin: 5px 3px 0 0;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid black;
+}

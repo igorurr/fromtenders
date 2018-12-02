@@ -8,6 +8,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -106,6 +110,12 @@ code {
 }
 
 
+
+.map-vacancies {
+  position: relative;
+  word-break: break-all;
+}
+
 .map-vacancies-address-container {
   margin: 10px;
   border-radius: 5px;
@@ -113,7 +123,9 @@ code {
   z-index: 1;
   background: #fff;
   box-shadow: #0008 0 0 5px;
-  max-width: 40%;
+  max-width: 70%;
+  max-height: 90%;
+  overflow-y: auto;
 }
 
 .map-vacancies-address-container article {
@@ -121,28 +133,100 @@ code {
   padding: 5px;
 }
 
-.map-vacancies-address-container article a {
-  text-decoration: none;
-  display: block;
+.map-vacancies-address-container article content,
+.map-vacancies-address-container article footer {
+  max-width: calc(100% - 40px);
 }
 
-.map-vacancies-address-container article a:hover {
-  background: #F5F5F5;
-}
-
-.map-vacancies-address-container article content {
+.map-vacancies-address-container article content a {
   color:#000;
 }
 
 .map-vacancies-address-container article footer {
+  position: relative;
   color: #777;
   font-size: 14px;
   margin: 3px;
 }
 
 .scrollTest {
+  border: 1px lightblue dotted;
+  border-radius: 10px; 
+  margin-top: 100px;
   height: 750px;
   width: 700px;
   overflow: auto;
   display: inline-block;
+}
+
+.map-vacancies-address-container article footer p {
+  margin: 0;
+}
+
+.map-vacancies-address-container article footer a {
+  display: block;
+  position: absolute;
+  height: 24px;
+  width: 26px;
+  right: -40px;
+  bottom: -4px;
+  background: url('../img/star2.png');
+  cursor: pointer;
+}
+
+.map-vacancies-address-container article footer a.selected {
+  background: url('../img/star1.png');
+}
+
+.list-vacancies {
+  border-radius: 5px; 
+  border: 1px gainsboro solid;
+  list-style-type: none;
+  box-shadow: #0008 0 0 5px;
+  margin-bottom: 10px;
+}
+
+.list-vacancies article footer {
+  color: #777;
+  font-size: 14px;
+  margin: 3px;
+}
+
+.list-vacancies:nth-child(2n) {
+  background-color:gainsboro;
+}
+
+.list-vacancies > a {
+  display: block;
+  position: relative;
+  height: 24px;
+  width: 26px;
+  bottom: 30px;
+  right: -200px;
+  background: url('../img/star2.png');
+  cursor: pointer;
+}
+
+.list-vacancies > a.selected {
+  background: url('../img/star1.png');
+}
+
+
+.error-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #000082;
+  text-align: center;
+}
+
+.error-screen img {
+  width: 80%;
+}
+
+.error-screen footer {
+  color: #fff;
+  font-size: 29px;
 }

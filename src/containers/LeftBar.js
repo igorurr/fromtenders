@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { Navigate } from './index'
-import { Filters } from '../components'
+import { AllFilterGroups } from '../components'
 
 const LeftBar = () => (
   <aside>
     <h2>Список вакансий фронтендеров</h2>
     <Navigate />
-    <Filters />
+    <AllFilterGroups />
   </aside>
 )
 

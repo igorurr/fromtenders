@@ -1,0 +1,56 @@
+#app {
+  display: flex;
+}
+
+#app > aside {
+  width: 368px;
+  overflow-y: auto;
+}
+
+#app > content {
+  flex-grow: 1;
+}
+
+
+
+#app > aside ul {
+  margin: 0;
+  padding: 0;
+}
+
+#app > aside > h2,
+#app > aside li,
+#app > aside .filters {
+  text-align: center;
+  display: block;
+}
+
+#app > aside li,
+#app > aside .filters {
+  font-size: 17px;
+}
+
+/* #app > aside > h2 {
+  margin: 53px 0;
+} */
+
+/* #app > aside li {
+  margin: 19px 0;
+} */
+
+
+.map-vacancies {
+}
+.map-vacancies .baloon-body p {
+   margin: 0;
+}
+
+.form-diapason content {
+  display: flex;
+}
+
+.form-diapason input {
+  width: 70px;
+  margin: 0 10px;
+  height: 19px;
+}
