@@ -20,13 +20,13 @@ class PlacemarkSingle extends Component {
 
   isActiveAddress() {
     const { address, activeAddress } = this.props;
-    return compare(address, activeAddress);
+    return compare(address.position, activeAddress);
   }
 
   update(e) {
     const { address, updateMapPosition } = this.props;
     updateMapPosition (
-      this.isActiveAddress() ? [] : address
+      this.isActiveAddress() ? [] : address.position
     );
   }
 
@@ -37,12 +37,16 @@ class PlacemarkSingle extends Component {
   }
 
   render() {
+    const { position, count } = this.props.address;
     return (
       <Placemark
         instanceRef={this.getRefs}
-        defaultGeometry={this.props.address}
+        defaultGeometry={position}
         options={{
           iconColor: this.isActiveAddress() ? '#ff6d43' : '#708eff'
+        }}
+        properties={{
+          iconContent: count+1
         }}
       />
     );

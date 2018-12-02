@@ -8,10 +8,17 @@ class PlacemarkGroup extends Component {
   getPositions(items) {
     let ret = [];
     items.forEach(item => {
-      let position = [ item.address.lat, item.address.lng ];
-      if (!ret.find(el => el[0] === position[0] && el[1] === position[1])) {
-        ret.push(position)
+      const position = [ item.address.lat, item.address.lng ];
+      const findElem = ret.find(el => el.position[0] === position[0] && el.position[1] === position[1]);
+
+      if ( findElem === undefined ) {
+        ret.push({
+          position,
+          count: 0
+        })
       }
+      else
+        findElem.count++;
     });
     return ret;
   };
@@ -20,7 +27,7 @@ class PlacemarkGroup extends Component {
     const { items } = this.props;
     return this.getPositions(items).map(address => (
       <PlacemarkSingle
-        key={address}
+        key={address.position}
         address={address}
       />
     ));

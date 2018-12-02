@@ -19,6 +19,7 @@ class MapVacancies extends Component {
     this.initMapObject = this.initMapObject.bind(this);
     this.waitForUpdateCurrentAddress = this.waitForUpdateCurrentAddress.bind(this);
     this.checkItemsForSelected = this.checkItemsForSelected.bind(this);
+    this.cleareMapSelectedAddress = this.cleareMapSelectedAddress.bind(this);
     this.updateCurrentAddress = this.updateCurrentAddress.bind(this);
   }
 
@@ -56,12 +57,16 @@ class MapVacancies extends Component {
 
     Map.events.add('actionbegin', e => this.setState({ moved: true }) );
 
-    Map.events.add('click', e => this.props.updateMapSelectedAddress([]));
+    Map.events.add('click', e => this.cleareMapSelectedAddress );
   }
 
   //#endregion
 
   //#region service methods
+
+  cleareMapSelectedAddress() {
+    this.props.updateMapSelectedAddress([])
+  }
 
   waitForUpdateCurrentAddress(Map) {
     this.setState({ moved: false });
@@ -129,6 +134,10 @@ class MapVacancies extends Component {
         </YMaps>
       </content>
     );
+  }
+
+  componentWillUnmount(){
+    this.cleareMapSelectedAddress();
   }
 };
 
