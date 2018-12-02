@@ -22,6 +22,10 @@ class App extends Component {
       </Router>
     );
   }
+
+  componentDidMount() {
+    console.log('defaultData');
+  }
 }
 
 export default App;

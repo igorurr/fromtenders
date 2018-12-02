@@ -41,6 +41,7 @@ class ListVacancies extends React.Component {
   nextPage() {
     const { search, page, loadNextPage } = this.props;
     loadNextPage(search, page + 1);
+    console.log('listFetchData');
   }
 
   render() {

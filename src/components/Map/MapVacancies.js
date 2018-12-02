@@ -108,6 +108,7 @@ class MapVacancies extends Component {
       center,
       zoom
     });
+    console.log('mapFetchData');
     this.props.fetchData(newPath);
   };
 

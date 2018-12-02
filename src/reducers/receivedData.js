@@ -43,7 +43,7 @@ const receivedData = (state = initialState, action) => {
       return {
         ...state,
         fail: true,
-      }
+      };
     default:
       return state;
   }

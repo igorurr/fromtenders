@@ -35,10 +35,6 @@ const receiveFail = () => ({
 
 export const defaultFetchData = () =>  {};
 
-export const mapFetchData = () =>  {};
-
-export const listFetchData = () =>  {};
-
 export const fetchData = (search, page) => async (dispatch) => {
   page === 0
     ? dispatch(requestAnotherData(search))
@@ -54,7 +50,6 @@ export const fetchData = (search, page) => async (dispatch) => {
       ))
     .catch(error => {
       dispatch(receiveFail());
-      console.log(error)
       throw new Error(error.statusText)
     });
 };

@@ -71,7 +71,9 @@ class AllFilterGroups extends Component {
         />
 
         <div>
-          <button onClick={() => handleSubmit(newSearch)}>
+          <button onClick={() =>{
+            console.log('filterFetchData');
+            handleSubmit(newSearch)}}>
             Обновить
           </button>
         </div>

@@ -33,7 +33,7 @@ class FilterGroup extends Component {
       transition: 'height 300ms ease-out',
       height: 0,
       overflow: 'hidden',
-    }
+    };
 
     const transitionStyle = {
       entering: { height: 0 },
