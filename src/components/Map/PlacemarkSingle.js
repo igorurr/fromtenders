@@ -11,22 +11,22 @@ class PlacemarkSingle extends Component {
     super(props);
 
     this.state = {
-      active: this.isActiveCenter()
+      active: this.isActiveAddress()
     };
 
     this.getRefs = this.getRefs.bind(this);
     this.update = this.update.bind(this);
   }
 
-  isActiveCenter() {
-    const { address, activeCenter } = this.props;
-    return compare(address, activeCenter);
+  isActiveAddress() {
+    const { address, activeAddress } = this.props;
+    return compare(address, activeAddress);
   }
 
   update(e) {
     const { address, updateMapPosition } = this.props;
     updateMapPosition (
-      this.isActiveCenter() ? [] : address
+      this.isActiveAddress() ? [] : address
     );
   }
 
@@ -42,7 +42,7 @@ class PlacemarkSingle extends Component {
         instanceRef={this.getRefs}
         defaultGeometry={this.props.address}
         options={{
-          iconColor: this.isActiveCenter() ? '#ff6d43' : '#708eff'
+          iconColor: this.isActiveAddress() ? '#ff6d43' : '#708eff'
         }}
       />
     );
@@ -51,11 +51,11 @@ class PlacemarkSingle extends Component {
 
 /// +++ this.prop.address
 const mapStateToProps = state => ({
-  activeCenter: state.map
+  activeAddress: state.map.activeAddress
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapPosition: center => dispatch(updateMapSelectedAddress(center)),
+  updateMapPosition: newAddress => dispatch(updateMapSelectedAddress(newAddress)),
 });
 
 export default connect(

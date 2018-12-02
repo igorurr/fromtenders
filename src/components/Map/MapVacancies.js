@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import PlacemarkGroup from './PlacemarkGroup';
 import VacancyBarHolder from './VacancyBarHolder';
-import { updateMapSelectedAddress } from '../../actions/map';
+import { updateMapSelectedAddress, updateMapVisibleData } from '../../actions/map';
 import { fetchData } from '../../actions/fetchData';
 
 
@@ -18,16 +18,18 @@ class MapVacancies extends Component {
     };
 
     this.initMapObject = this.initMapObject.bind(this);
+    this.waitForUpdateCurrentAddress = this.waitForUpdateCurrentAddress.bind(this);
     this.checkItemsForSelected = this.checkItemsForSelected.bind(this);
     this.updateCurrentAddress = this.updateCurrentAddress.bind(this);
   }
+
+  //#region helpers
 
   cleareNullAddress(items) {
     return items.filter(el => el.address !== null && el.address.lat !== null);
   };
 
   getItemsFromAddress(items, activeAddress) {
-    console.log(items, activeAddress)
     return items.filter(el =>
       el.address.lat === activeAddress[0] && el.address.lng === activeAddress[1]
     );
@@ -41,8 +43,50 @@ class MapVacancies extends Component {
     });
   };
 
-  updateCurrentAddress(bounds) {
-    let bottom_lat = bounds[0][0],
+  //#endregion
+
+  //#region events
+
+  initMapObject(Map) {
+    if (Map == null)
+      return;
+
+    Map.events.add('actionend', e => {
+      this.waitForUpdateCurrentAddress( Map )
+    });
+
+    Map.events.add('actionbegin', e => this.setState({ moved: true }) );
+
+    Map.events.add('click', e => this.props.updateMapSelectedAddress([]));
+  }
+
+  //#endregion
+
+  //#region service methods
+
+  waitForUpdateCurrentAddress(Map) {
+    this.setState({ moved: false });
+
+    let timeOut = setTimeout(() => {
+      if (this.state.moved)
+        return;
+
+      this.updateCurrentAddress(Map);
+      this.setState({ lastTimeOut: null });
+    }, 500);
+
+    if (this.state.lastTimeOut != null)
+      clearInterval(this.state.lastTimeOut);
+
+    this.setState({ lastTimeOut: timeOut });
+  }
+
+  updateCurrentAddress(Map) {
+    const bounds = Map.getBounds(),
+          center = Map.getCenter(),
+          zoom = Map.getZoom();
+
+    const bottom_lat = bounds[0][0],
         left_lng = bounds[0][1],
         top_lat = bounds[1][0],
         right_lng = bounds[1][1];
@@ -54,42 +98,27 @@ class MapVacancies extends Component {
     const lat = (bottom_lat + top_lat) / 2;
     const lng = (left_lng + right_lng) / 2;
 
-    this.props.updateMapSelectedAddress([lat, lng]);
+    this.props.updateMapVisibleData({
+      bounds:{
+        bottom_lat,
+        left_lng,
+        top_lat,
+        right_lng
+      },
+      center,
+      zoom
+    });
     this.props.fetchData(newPath);
   };
 
-  initMapObject(Map) {
-    if (Map == null)
-      return;
-
-    Map.events.add('actionend', e => {
-      this.setState({ moved: false });
-
-      let timeOut = setTimeout(() => {
-        if (this.state.moved)
-          return;
-
-        this.updateCurrentAddress(Map.getBounds());
-        this.setState({ lastTimeOut: null });
-      }, 500);
-
-      if (this.state.lastTimeOut != null)
-        clearInterval(this.state.lastTimeOut);
-
-      this.setState({ lastTimeOut: timeOut });
-    });
-
-    Map.events.add('actionbegin', e => {
-      this.setState({ moved: true });
-    });
-
-    Map.events.add('click', e => this.props.updateMapSelectedAddress([]));
-  }
+  //#endregion
 
   render() {
     const items = this.cleareNullAddress(this.props.items)
     const itemsFromCurrentAddress =
       this.checkItemsForSelected(this.getItemsFromAddress(items, this.props.activeAddress));
+
+    const { center, zoom } = this.props.visibleData
 
     return (
       <content className="map-vacancies">
@@ -97,8 +126,8 @@ class MapVacancies extends Component {
         <YMaps preload>
           <Map
             defaultState={{
-              center: [55.76, 37.59],
-              zoom: 11
+              center,
+              zoom
             }}
             instanceRef={this.initMapObject}
             width={"100%"}
@@ -121,7 +150,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapSelectedAddress: center => dispatch(updateMapSelectedAddress(center)),
+  updateMapVisibleData: newVisibleData => dispatch(updateMapVisibleData(newVisibleData)),
+  updateMapSelectedAddress: newAddress => dispatch(updateMapSelectedAddress(newAddress)),
   fetchData: path => dispatch(fetchData(path, 0))
 });
 
