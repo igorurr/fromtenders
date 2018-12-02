@@ -1,5 +1,7 @@
-export const ADD_VACANCY = 'ADD_VACANCY';
-export const REMOVE_VACANCY = 'REMOVE_VACANCY';
+import {
+  ADD_VACANCY,
+  REMOVE_VACANCY
+} from '../constants/selectVacancy';
 
 const addVacancy = vac => ({
   type: ADD_VACANCY,

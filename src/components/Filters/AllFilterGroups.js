@@ -9,7 +9,7 @@ import {
   SCHEDULE,
   SORT_TYPE,
   SALARY
-} from './consts';
+} from '../../constants/AllFilterGroups';
 
 
 class AllFilterGroups extends Component {

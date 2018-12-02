@@ -114,11 +114,11 @@ class MapVacancies extends Component {
   //#endregion
 
   render() {
-    const items = this.cleareNullAddress(this.props.items)
+    const items = this.cleareNullAddress(this.props.items);
     const itemsFromCurrentAddress =
       this.checkItemsForSelected(this.getItemsFromAddress(items, this.props.activeAddress));
 
-    const { center, zoom } = this.props.visibleData
+    const { center, zoom } = this.props.visibleData;
 
     return (
       <content className="map-vacancies">

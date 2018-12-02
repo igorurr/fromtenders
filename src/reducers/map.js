@@ -1,7 +1,7 @@
 import {
   UPDATE_MAP_SELECTED_ADDRESS,
   UPDATE_MAP_VISIBLE_DATA
-} from '../actions/map';
+} from '../constants/map';
 
 const initialState = {
   activeAddress: [],

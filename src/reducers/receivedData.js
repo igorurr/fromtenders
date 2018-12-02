@@ -2,8 +2,8 @@ import {
   REQUEST_NEXT_DATA,
   REQUEST_ANOTHER_DATA,
   RECEIVE_DATA,
-  RECEIVE_FAIL,
-} from '../actions/fetchData';
+  RECEIVE_FAIL
+} from '../constants/fetchData';
 
 const initialState = {
   search: '',

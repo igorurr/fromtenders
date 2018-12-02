@@ -1,5 +1,7 @@
-export const UPDATE_MAP_SELECTED_ADDRESS = 'UPDATE_MAP_SELECTED_ADDRESS';
-export const UPDATE_MAP_VISIBLE_DATA = 'UPDATE_MAP_VISIBLE_DATA';
+import {
+  UPDATE_MAP_SELECTED_ADDRESS,
+  UPDATE_MAP_VISIBLE_DATA
+} from '../constants/map';
 
 export const updateMapVisibleData = newVisibleData  => {
   return {

@@ -1,4 +1,7 @@
-import { ADD_VACANCY, REMOVE_VACANCY } from '../actions/selectVacancy';
+import {
+  ADD_VACANCY,
+  REMOVE_VACANCY
+} from '../constants/selectVacancy';
 
 const selectedVacancies = (state = [], action) => {
   switch (action.type) {
