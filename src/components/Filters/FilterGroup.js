@@ -37,7 +37,7 @@ class FilterGroup extends Component {
 
     const transitionStyle = {
       entering: { height: 0 },
-      entered:  { height: `${parameter.length * 20 + 10}px` }
+      entered:  { height: `${parameter.length * 20 + 20}px` }
     };
 
     return (

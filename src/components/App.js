@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 
-import { Page1, Page2 } from '../containers'
+import { Error, Page1, Page2 } from '../containers'
 import '../css/App.css';
 import { fetchData } from "../actions/fetchData";
 import {connect} from "react-redux";
@@ -20,6 +20,7 @@ class App extends Component {
             <Route exact path={'/'} component={Page1} />
             <Route path={'/map'} component={Page2} />
           </Switch>
+          <Error />
         </div>
       </Router>
     );

@@ -110,6 +110,12 @@ code {
 }
 
 
+
+.map-vacancies {
+  position: relative;
+  word-break: break-all;
+}
+
 .map-vacancies-address-container {
   margin: 10px;
   border-radius: 5px;
@@ -117,7 +123,9 @@ code {
   z-index: 1;
   background: #fff;
   box-shadow: #0008 0 0 5px;
-  max-width: 40%;
+  max-width: 70%;
+  max-height: 90%;
+  overflow-y: auto;
 }
 
 .map-vacancies-address-container article {
@@ -158,4 +166,26 @@ code {
 
 .map-vacancies-address-container article footer a.selected {
   background: url('../img/star1.png');
+}
+
+
+
+
+.error-screen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #000082;
+  text-align: center;
+}
+
+.error-screen img {
+  width: 80%;
+}
+
+.error-screen footer {
+  color: #fff;
+  font-size: 29px;
 }
