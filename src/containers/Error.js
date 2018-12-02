@@ -5,7 +5,7 @@ import errorImg from '../img/error.jpg'
 
 const Error = ({ active }) => (
   <div className={'error-screen ' + (active ? '' : 'disabled')}>
-    <img src={errorImg}/>
+    <img src={errorImg} alt='Oops! Error is here.'/>
     <footer>Произошла ошибка<br/>Пожалуйста, обновите страницу</footer>
   </div>
 );

@@ -85,7 +85,7 @@ export const fetchData = ( loadingNewData ) => async (dispatch) => {
 
   return await fetch(query)
     .then(res => {
-      if (!res.ok) throw new Error(res.statusText);
+      if (!res.ok) throw new Error(res);
       return res.json();
     })
     .then(data => dispatch(
@@ -93,6 +93,6 @@ export const fetchData = ( loadingNewData ) => async (dispatch) => {
     ))
     .catch(error => {
       dispatch(receiveFail());
-      throw new Error(error.statusText)
+      throw new Error(error)
     });
 };

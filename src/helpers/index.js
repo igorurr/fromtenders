@@ -28,7 +28,6 @@ const vacancyRequestAdapter = data =>
     employer: i.employer,
     published_at: i.published_at,
     alternate_url: i.alternate_url,
-    key_values: i.key_values,
   }));
 
 export { tryRemoveFromArray, tryPushToArray, compare, vacancyRequestAdapter };

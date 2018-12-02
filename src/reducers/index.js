@@ -6,6 +6,7 @@ import map from './map';
 import filters from './filters';
 import receivedData from './receivedData';
 import selectedVacancies from './selectedVacancies';
+import inputSearch from './inputSearch';
 
 const rootReducer = history => combineReducers({
   router: connectRouter(history),
@@ -14,6 +15,7 @@ const rootReducer = history => combineReducers({
   filters,
   receivedData,
   selectedVacancies,
+  inputSearch,
 });
 
 export default rootReducer;

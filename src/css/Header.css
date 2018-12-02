@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  height: 40px;
+  background: black;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links * {
+  margin-left: 30px;
+  color: white;
+  font-size: 80%;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+input {
+  height: 25px;
+  margin-right: 50px;
+  font-size: 16px;
+  padding: 0 5px;
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+input:focus {
+  background: grey;
+  border-radius: 3px;
+}
+
+::placeholder {
+  color: white;
+  opacity: 0.6;
+}
