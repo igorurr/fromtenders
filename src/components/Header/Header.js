@@ -4,29 +4,41 @@ import { Link } from 'react-router-dom';
 import { typeInputSearch } from '../../actions/typeInputSearch';
 import '../../css/Header.css';
 
-const Header = ({ value, onSearch }) => {
+const Header = ({ value, router, onSearch }) => {
 
   return(
-    <div className='header'>
+    <div className='header-line'>
 
-      <div className='links'>
-        <Link to='/'>Список</Link>
-        <Link to='/map'>Карта</Link>
+      <div className='app-title'>
+        Вакансии для Frontend-разработчика в Москве
       </div>
 
-      <input
-        type='text'
-        placeholder='Искать по названию'
-        value={value}
-        onChange={e => onSearch(e.target.value)}
-      />
+      <div className='links'>
+        <Link to='/'
+          className={router === '/' ? 'route' : ''}
+        >Список</Link>
+        <Link to='/map'
+          className={router === '/map' ? 'route' : ''}
+        >Карта</Link>
+      </div>
+
+      <div className="search">
+        Искать:
+        <input
+          type='text'
+          placeholder='Искать по названию'
+          value={value}
+          onChange={e => onSearch(e.target.value)}
+        />
+      </div>
 
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-    value: state.inputSearch
+  value: state.inputSearch,
+  router: state.router.location.pathname,
 });
 
 const mapDispatchToProps = dispatch => ({

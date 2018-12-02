@@ -1,13 +1,13 @@
 .filter-group {
-  margin: 10px;
-  width: 200px;
+  margin: 20px;
+  width: 160px;
 }
 
 .filter {
   opacity: 0.5;
   cursor: pointer;
   font-size: 90%;
-  padding: 2px;
+  padding: 2px 5px;
 }
 
 .filter:hover {
@@ -16,13 +16,13 @@
 
 .active {
   opacity: 1;
+  background: lightgrey;
 }
 
 .active:hover {
-  background: gainsboro;
+  background: silver;
   opacity: 1;
 }
-
 
 .active:after {
   float: right;
@@ -32,7 +32,15 @@
 
 header {
   height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 5px;
   cursor: pointer;
+}
+
+header:hover {
+  background: silver;
 }
 
 header > div {
@@ -44,8 +52,6 @@ header:hover > div {
 }
 
 .up {
-  float: right;
-  margin: 5px 3px 0 0;
   width: 0;
   height: 0;
   border-left: 6px solid transparent;
@@ -54,11 +60,9 @@ header:hover > div {
 }
 
 .down {
-  float: right;
-  margin: 5px 3px 0 0;
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
   border-top: 10px solid black;
 }

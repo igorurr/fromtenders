@@ -22,10 +22,10 @@ code {
   display: flex;
 }
 
-#app > aside {
+/* #app > aside {
   width: 368px;
   overflow-y: auto;
-}
+} */
 
 #app > content {
   flex-grow: 1;

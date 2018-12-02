@@ -88,19 +88,19 @@ export const CITY = [
 
 export const SORT_TYPE = [
   {
-    value:'&vacancy_search_order=publication_time',
+    value:'&order_by=publication_time',
     text: 'Дате изменения'
   },
   {
-    value:'&vacancy_search_order=salary_desc',
+    value:'&order_by=salary_desc',
     text: 'Убыванию зарплат'
   },
   {
-    value:'&vacancy_search_order=salary_asc',
+    value:'&order_by=salary_asc',
     text: 'Возрастанию зарплат'
   },
   {
-    value:'&vacancy_search_order=relevance',
+    value:'&order_by=relevance',
     text: 'Соответствию'
   }
 ];
