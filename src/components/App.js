@@ -5,7 +5,8 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import { Header } from './index'
-import { Error, Page1, Page2 } from '../containers';
+import { ListVacancies, MapVacancies } from '../components'
+import { Error, LeftBar } from '../containers';
 import '../css/App.css';
 import { fetchData } from "../actions/fetchData";
 import { connect } from "react-redux";
@@ -25,8 +26,11 @@ class App extends Component {
         <div>
           <Header />
           <Switch>
-            <Route exact path={'/'} component={Page1} />
-            <Route path={'/map'} component={Page2} />
+            <main id={"app"} style={{ height: (window.innerHeight-40)+"px" }}>
+              <LeftBar />
+              <Route exact path={'/'} component={ListVacancies} />
+              <Route path={'/map'} component={MapVacancies} />
+            </main>
           </Switch>
           <Error />
         </div>

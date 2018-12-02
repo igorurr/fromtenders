@@ -47,7 +47,7 @@ class ListVacancies extends React.Component {
   render() {
     const { items, page, addIfNotExist, removeIfExist } = this.props;
     return (
-      <div onScroll={this.handleScroll}>
+      <div className="list-vacancies" onScroll={this.handleScroll}>
         {page}
         <button onClick={this.nextPage} type="button">Next</button>
         <ul>

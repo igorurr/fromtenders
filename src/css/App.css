@@ -111,6 +111,13 @@ code {
 
 
 
+.list-vacancies {
+  height: 100%;
+  overflow-y: auto;
+}
+
+
+
 .map-vacancies {
   position: relative;
   word-break: break-all;
