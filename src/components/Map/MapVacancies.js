@@ -105,7 +105,7 @@ class MapVacancies extends Component {
   //#endregion
 
   render() {
-    const items = this.cleareNullAddress(this.props.items);
+    const items = this.cleareNullAddress(this.props.items).slice(0,20);
     const itemsFromCurrentAddress =
       this.checkItemsForSelected(this.getItemsFromAddress(items, this.props.activeAddress));
 
