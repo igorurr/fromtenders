@@ -6,6 +6,8 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 import { Page1, Page2 } from '../containers'
 import '../css/App.css';
+import { fetchData } from "../actions/fetchData";
+import {connect} from "react-redux";
 
 const history = createBrowserHistory();
 
@@ -24,8 +26,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('defaultData');
+    this.props.defaultFetchData();
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  defaultFetchData: () => dispatch(fetchData( true ))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(App);

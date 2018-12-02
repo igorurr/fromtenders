@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import FilterGroup from './FilterGroup';
-import { fetchData } from '../../actions/fetchData';
+import { filterFetchData } from '../../actions/filters';
 import {
   EXPERIENCE,
   EMPLOYMENT,
@@ -16,13 +16,7 @@ class AllFilterGroups extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      exp: '',
-      empl: '',
-      schedule: '',
-      salary: '',
-      sortType: '',
-    };
+    this.state = props.filters;
   }
 
   takeNewSearch = (search, statePart) =>
@@ -31,49 +25,49 @@ class AllFilterGroups extends Component {
     });
 
   render() {
-    const { exp, empl, schedule, sortType, salary } = this.state;
-    const { handleSubmit } = this.props;
-
-    const origSearch = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
-    const newSearch = `${origSearch}${exp}${empl}${schedule}${salary}${sortType}`;
+    const { exp, empl, schedule, salary, sortType } = this.state;
+    const { filterFetchData } = this.props;
 
     return (
       <div className='all-filter-groups'>
 
         <FilterGroup
+          activeValue={exp}
           header={'Опыт работы'}
           parameter={EXPERIENCE}
           handleChange={search => this.takeNewSearch(search, 'exp')}
         />
 
         <FilterGroup
+          activeValue={empl}
           header={'Тип занятости'}
           parameter={EMPLOYMENT}
           handleChange={search => this.takeNewSearch(search, 'empl')}
         />
 
         <FilterGroup
+          activeValue={schedule}
           header={'График работы'}
           parameter={SCHEDULE}
           handleChange={search => this.takeNewSearch(search, 'schedule')}
         />
 
         <FilterGroup
+          activeValue={salary}
           header={'Зарплата'}
           parameter={SALARY}
           handleChange={search => this.takeNewSearch(search, 'salary')}
         />
 
         <FilterGroup
+          activeValue={sortType}
           header={'Сортировать по'}
           parameter={SORT_TYPE}
           handleChange={search => this.takeNewSearch(search, 'sortType')}
         />
 
         <div>
-          <button onClick={() =>{
-            console.log('filterFetchData');
-            handleSubmit(newSearch)}}>
+          <button onClick={ () => filterFetchData(this.state) }>
             Обновить
           </button>
         </div>
@@ -83,11 +77,15 @@ class AllFilterGroups extends Component {
   }
 };
 
+const mapStateToProps = state => ({
+  filters: state.filters.state
+});
+
 const mapDispatchToProps = dispatch => ({
-  handleSubmit: newSearch => dispatch(fetchData(newSearch, 0))
+  filterFetchData: newFilters => dispatch(filterFetchData(newFilters))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(AllFilterGroups);

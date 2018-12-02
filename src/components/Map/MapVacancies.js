@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 
 import PlacemarkGroup from './PlacemarkGroup';
 import VacancyBarHolder from './VacancyBarHolder';
-import { updateMapSelectedAddress, updateMapVisibleData } from '../../actions/map';
-import { fetchData } from '../../actions/fetchData';
+import { updateMapSelectedAddress, mapFetchData } from '../../actions/map';
 
 
 class MapVacancies extends Component {
@@ -91,14 +90,7 @@ class MapVacancies extends Component {
         top_lat = bounds[1][0],
         right_lng = bounds[1][1];
 
-    const origPath = 'https://api.hh.ru/vacancies?text=Frontend&area=1';
-    const newPath = `${origPath}
-      &top_lat=${top_lat}&bottom_lat=${bottom_lat}&left_lng=${left_lng}&right_lng=${right_lng}`;
-
-    const lat = (bottom_lat + top_lat) / 2;
-    const lng = (left_lng + right_lng) / 2;
-
-    this.props.updateMapVisibleData({
+    this.props.mapFetchData({
       bounds:{
         bottom_lat,
         left_lng,
@@ -108,8 +100,6 @@ class MapVacancies extends Component {
       center,
       zoom
     });
-    console.log('mapFetchData');
-    this.props.fetchData(newPath);
   };
 
   //#endregion
@@ -151,9 +141,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateMapVisibleData: newVisibleData => dispatch(updateMapVisibleData(newVisibleData)),
   updateMapSelectedAddress: newAddress => dispatch(updateMapSelectedAddress(newAddress)),
-  fetchData: path => dispatch(fetchData(path, 0))
+  mapFetchData: newVisibleData => dispatch(mapFetchData(newVisibleData))
 });
 
 export default connect(

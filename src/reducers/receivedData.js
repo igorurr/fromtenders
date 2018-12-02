@@ -8,7 +8,6 @@ import {
 const initialState = {
   search: '',
   isFetching: false,
-  loadedPage: 0,
   items: [],
   receivedAt: '',
   fail: false
@@ -36,12 +35,13 @@ const receivedData = (state = initialState, action) => {
         ...state,
         isFetching: false,
         items: state.items.concat(action.items),
-        loadedPage: action.page,
         receivedAt: action.receivedAt,
+        fail: false
       };
     case RECEIVE_FAIL:
       return {
         ...state,
+        isFetching: false,
         fail: true,
       };
     default:

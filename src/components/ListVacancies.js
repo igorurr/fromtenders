@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
-import { fetchData } from '../actions/fetchData';
+import { listFetchData } from '../actions/list';
 
 
 class RowComponent extends React.Component {
@@ -39,8 +39,8 @@ class ListVacancies extends React.Component {
   }
 
   nextPage() {
-    const { search, page, loadNextPage } = this.props;
-    loadNextPage(search, page + 1);
+    const { page, loadNextPage } = this.props;
+    loadNextPage(page + 1);
     console.log('listFetchData');
   }
 
@@ -76,14 +76,13 @@ ListVacancies.propTypes = {
 
 
 const mapStateToProps = state => ({
-  search: state.receivedData.search,
   isFetching: state.receivedData.isFetching,
-  page: state.receivedData.loadedPage,
+  page: state.list.page,
   items: state.receivedData.items,
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadNextPage: (search, page) => dispatch(fetchData(search, page)),
+  loadNextPage: (page) => dispatch(listFetchData(page)),
   addIfNotExist: vac => dispatch(addIfNotExist(vac)),
   removeIfExist: vac => dispatch(removeIfExist(vac)),
 });

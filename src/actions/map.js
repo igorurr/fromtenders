@@ -3,23 +3,27 @@ import {
   UPDATE_MAP_VISIBLE_DATA
 } from '../constants/map';
 
-import { fetchData } from './fetchData'
+import { updateListPage } from './list';
 
-export const updateMapVisibleData = newVisibleData  => {
+import { fetchData } from './fetchData';
+
+const updateMapVisibleData = newVisibleData  => {
   return {
     type: UPDATE_MAP_VISIBLE_DATA,
-    newVisibleData: newVisibleData
+    newVisibleData
   };
 };
 
 export const updateMapSelectedAddress = newAddress => {
   return {
     type: UPDATE_MAP_SELECTED_ADDRESS,
-    newAddress: newAddress
+    newAddress
   };
 };
 
 
 export const mapFetchData = (newAddress) => async (dispatch) => {
-
+  dispatch(updateListPage(0));
+  dispatch(updateMapVisibleData(newAddress));
+  return await (fetchData( true ))(dispatch);
 };

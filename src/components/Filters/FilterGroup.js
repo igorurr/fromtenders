@@ -8,7 +8,7 @@ class FilterGroup extends Component {
     super(props);
 
     this.state = {
-      activeValue: '',
+      activeValue: 'activeValue' in props ? props.activeValue : '',
       showGroup: true,
     };
 

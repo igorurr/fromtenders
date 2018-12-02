@@ -1,1 +1,1 @@
-export const UPDATE_LIST_DATA = 'UPDATE_LIST_DATA';
+export const UPDATE_LIST_PAGE = 'UPDATE_LIST_PAGE';
