@@ -46,7 +46,7 @@ export const fetchData = ( loadingNewData ) => async (dispatch) => {
     schedule,
     salary,
     sortType,
-  } = storeState.filters.state;
+  } = storeState.filters;
 
   if( typeof exp === 'string' && exp.length > 0)
     query += `${exp}`;

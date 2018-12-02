@@ -18,7 +18,7 @@ class FilterGroup extends Component {
 
   updateFilter(value) {
     this.setState({ activeValue: value });
-    this.props.handleChange(value);
+    this.props.onFilterClick(value);
   }
 
   showGroup() {

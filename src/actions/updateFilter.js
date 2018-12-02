@@ -1,18 +1,18 @@
 import { UPDATE_FILTERS } from '../constants/filters';
 
 import { updateListPage } from './list';
-
 import { fetchData } from './fetchData';
 
-const updateFilters = newFilters  => {
+const updateFilter = (filter, value)  => {
   return {
     type: UPDATE_FILTERS,
-    newFilters
+    filter,
+    value
   };
 };
 
-export const filterFetchData = (newFilters) => async (dispatch) => {
+export const filterFetchData = (filter, value) => async (dispatch) => {
   dispatch(updateListPage(0));
-  dispatch(updateFilters(newFilters));
+  dispatch(updateFilter(filter, value));
   return await (fetchData( true ))(dispatch);
 };

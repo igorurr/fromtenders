@@ -1,15 +1,11 @@
-import {
-  UPDATE_FILTERS
-} from '../constants/filters';
+import { UPDATE_FILTERS } from '../constants/filters';
 
 const initialState = {
-  state: {
-    exp: '',
-    empl: '',
-    schedule: '',
-    salary: '',
-    sortType: ''
-  }
+  exp: '',
+  empl: '',
+  schedule: '',
+  salary: '',
+  sortType: ''
 };
 
 const filters = (state = initialState, action) => {
@@ -17,7 +13,7 @@ const filters = (state = initialState, action) => {
     case UPDATE_FILTERS:
       return {
         ...state,
-        state: action.newFilters
+        [action.filter]: action.value
       };
     default:
       return state;
