@@ -4,9 +4,11 @@ import VacancyBar from './VacancyBar';
 
 class VacancyBarHolder extends Component {
   render() {
+    console.log(this.props.items)
     const { items } = this.props;
-    if (!items.length)
+    if (items.length === 0)
       return null;
+    console.log(this.props.items)
 
     return (
       <aside className='map-vacancies-address-container'>

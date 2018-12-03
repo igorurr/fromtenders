@@ -196,3 +196,9 @@ code {
   color: #fff;
   font-size: 29px;
 }
+
+
+.all-filter-groups {
+  overflow-y: auto;
+  height: 100%;
+}
