@@ -1,10 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
-import { addIfNotExist, removeIfExist } from '../../actions/selectVacancy';
 import { listFetchData } from '../../actions/list';
 import getSearchedVacancies from '../../selectors/getSearchedVacancies';
+import { checkItemsForSelected } from '../../helpers/';
+
+import { SingleVacancy } from '../index';
 
 
 class RowComponent extends React.Component {
@@ -25,17 +27,26 @@ class ListVacancies extends React.Component {
     super(props);
 
     this.handleScroll = this.handleScroll.bind(this);
+    this.checkOffset = this.checkOffset.bind(this);
     this.nextPage = this.nextPage.bind(this);
   }
 
   handleScroll() {
-    const root = document.getElementById('root');
-    const bottomScrollMark = 200;
-    const currentBottomScroll = root.scrollHeight - root.scrollTop - root.clientHeight;
+    this.checkOffset();
+  }
 
-    if (this.props.isFetching || currentBottomScroll > bottomScrollMark) {
+  checkOffset() {
+    const bottomScrollMark = 200;
+
+    const dlv = this.domListVacancies;
+
+    const track = dlv.scrollHeight - bottomScrollMark < dlv.scrollTop + dlv.clientHeight;
+
+    if (this.props.isFetching || dlv.scrollHeight - bottomScrollMark > dlv.scrollTop + dlv.clientHeight ) {
       return;
     }
+
+    console.log( track )
     this.nextPage();
   }
 
@@ -45,46 +56,39 @@ class ListVacancies extends React.Component {
   }
 
   render() {
-    const { items, page, addIfNotExist, removeIfExist } = this.props;
+    const { items, page, addIfNotExist, removeIfExist, selectedItems } = this.props;
     return (
-      <div className="list-vacancies" onScroll={this.handleScroll}>
-        {page}
-        <button onClick={this.nextPage} type="button">Next</button>
-        <ul>
-          {items.map(
-            item => (
-              <RowComponent
-                key={item.id}
-                item={item}
-                onAdd={() => addIfNotExist(item)}
-                onRemove={() => removeIfExist(item)}/>
-            ))}
-        </ul>
-      </div>
+      <ul
+        ref={(el)=>this.domListVacancies = ReactDOM.findDOMNode(el)}
+        className="list-vacancies"
+        onScroll={this.handleScroll}
+      >
+        {checkItemsForSelected(items,selectedItems).map(
+          item => (
+            <SingleVacancy
+              key={item.id}
+              item={item}
+            />
+          ))}
+      </ul>
     );
   }
+
+  componentDidUpdate() {
+    this.checkOffset();
+  }
 };
-// 
-// ListVacancies.propTypes = {
-//   isFetching: PropTypes.bool.isRequired,
-//   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   page: PropTypes.number.isRequired,
-//   loadNextPage: PropTypes.func.isRequired,
-//   addIfNotExist: PropTypes.func.isRequired,
-//   removeIfExist: PropTypes.func.isRequired,
-// };
 
 
 const mapStateToProps = state => ({
   isFetching: state.receivedData.get('isFetching'),
+  selectedItems: state.selectedVacancies,
   page: state.loadedPages,
   items: getSearchedVacancies(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadNextPage: (page) => dispatch(listFetchData(page)),
-  addIfNotExist: vac => dispatch(addIfNotExist(vac)),
-  removeIfExist: vac => dispatch(removeIfExist(vac)),
+  loadNextPage: (page) => dispatch(listFetchData(page))
 });
 
 export default connect(

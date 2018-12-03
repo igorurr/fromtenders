@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { addIfNotExist, removeIfExist } from '../../actions/selectVacancy';
+import { addIfNotExist, removeIfExist } from '../actions/selectVacancy';
 import { connect } from 'react-redux';
 
 
-class VacancyBar extends Component {
+class SingleVacancy extends Component {
 
   onClickSelected = () => {
     const { item, addIfNotExist, removeIfExist } = this.props;
@@ -19,7 +19,7 @@ class VacancyBar extends Component {
     const { item } = this.props;
 
     return (
-      <article>
+      <article className={'single-vacancy'}>
           <content>
             <a href={item.alternate_url} target="blank">{item.name}</a>
           </content>
@@ -49,4 +49,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(VacancyBar);
+)(SingleVacancy);

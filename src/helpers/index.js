@@ -30,4 +30,12 @@ const vacancyRequestAdapter = data =>
     alternate_url: i.alternate_url,
   }));
 
-export { tryRemoveFromArray, tryPushToArray, compare, vacancyRequestAdapter };
+const checkItemsForSelected = ( items, selectedItems ) => {
+  let selectedItemsIds = selectedItems.map(el => el.id);
+  return items.map(el => {
+    el.isSelected = selectedItemsIds.indexOf( el.id ) !== -1;
+    return el;
+  });
+};
+
+export { tryRemoveFromArray, tryPushToArray, compare, vacancyRequestAdapter, checkItemsForSelected };

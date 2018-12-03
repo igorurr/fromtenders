@@ -111,9 +111,54 @@ code {
 
 
 
+
+.single-vacancy content a {
+  color:#000;
+}
+
+.single-vacancy footer {
+  position: relative;
+  color: #777;
+  font-size: 14px;
+  margin: 3px;
+}
+
+.single-vacancy footer p {
+  margin: 0;
+}
+
+.single-vacancy footer a {
+  display: block;
+  position: absolute;
+  height: 24px;
+  width: 26px;
+  background: url('../img/star2.png');
+  cursor: pointer;
+}
+
+.single-vacancy footer a.selected {
+  background: url('../img/star1.png');
+}
+
+
+
 .list-vacancies {
-  height: 100%;
   overflow-y: auto;
+  width: 100%;
+}
+
+.list-vacancies .single-vacancy {
+  margin-bottom: 13px;
+}
+
+.list-vacancies .single-vacancy footer a {
+  left: -31px;
+  top: -18px;
+}
+
+.list-vacancies .single-vacancy content,
+.list-vacancies .single-vacancy footer {
+  margin-left: 10px;
 }
 
 
@@ -135,44 +180,19 @@ code {
   overflow-y: auto;
 }
 
-.map-vacancies-address-container article {
+.map-vacancies-address-container .single-vacancy {
   margin: 5px;
   padding: 5px;
 }
 
-.map-vacancies-address-container article content,
-.map-vacancies-address-container article footer {
+.map-vacancies-address-container .single-vacancy content,
+.map-vacancies-address-container .single-vacancy footer {
   max-width: calc(100% - 40px);
 }
 
-.map-vacancies-address-container article content a {
-  color:#000;
-}
-
-.map-vacancies-address-container article footer {
-  position: relative;
-  color: #777;
-  font-size: 14px;
-  margin: 3px;
-}
-
-.map-vacancies-address-container article footer p {
-  margin: 0;
-}
-
-.map-vacancies-address-container article footer a {
-  display: block;
-  position: absolute;
-  height: 24px;
-  width: 26px;
+.map-vacancies-address-container .single-vacancy footer a {
   right: -40px;
   bottom: -4px;
-  background: url('../img/star2.png');
-  cursor: pointer;
-}
-
-.map-vacancies-address-container article footer a.selected {
-  background: url('../img/star1.png');
 }
 
 

@@ -6,6 +6,7 @@ import PlacemarkGroup from './PlacemarkGroup';
 import VacancyBarHolder from './VacancyBarHolder';
 import { updateMapSelectedAddress, mapFetchData } from '../../actions/map';
 import getSearchedVacancies from '../../selectors/getSearchedVacancies';
+import { checkItemsForSelected } from '../../helpers/';
 
 
 class MapVacancies extends Component {
@@ -19,7 +20,6 @@ class MapVacancies extends Component {
 
     this.initMapObject = this.initMapObject.bind(this);
     this.waitForUpdateCurrentAddress = this.waitForUpdateCurrentAddress.bind(this);
-    this.checkItemsForSelected = this.checkItemsForSelected.bind(this);
     this.cleareMapSelectedAddress = this.cleareMapSelectedAddress.bind(this);
     this.updateCurrentAddress = this.updateCurrentAddress.bind(this);
   }
@@ -34,14 +34,6 @@ class MapVacancies extends Component {
     return items.filter(el =>
       el.address.lat === activeAddress[0] && el.address.lng === activeAddress[1]
     );
-  };
-
-  checkItemsForSelected(items) {
-    let selectedItemsIds = this.props.selectedItems.map(el => el.id);
-    return items.map(el => {
-      el.isSelected = selectedItemsIds.indexOf( el.id ) !== -1;
-      return el;
-    });
   };
 
   //#endregion
@@ -112,9 +104,8 @@ class MapVacancies extends Component {
 
   render() {
     const items = this.cleareNullAddress(this.props.items).slice(0,20);
-    console.log(items)
     const itemsFromCurrentAddress =
-      this.checkItemsForSelected(this.getItemsFromAddress(items, this.props.activeAddress));
+      checkItemsForSelected(this.getItemsFromAddress(items, this.props.activeAddress),this.props.selectedItems);
 
     const { center, zoom } = this.props.visibleData;
 
