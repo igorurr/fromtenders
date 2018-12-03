@@ -38,7 +38,7 @@ const receiveFail = () => ({
 export const fetchData = ( loadingNewData ) => async (dispatch) => {
   const storeState = store.getState();
 
-  let query = `${ORIG_PATH}&page=${storeState.list.page}`;
+  let query = `${ORIG_PATH}&page=${storeState.loadedPages}`;
 
   const {
     exp,
@@ -46,7 +46,7 @@ export const fetchData = ( loadingNewData ) => async (dispatch) => {
     schedule,
     salary,
     sortType,
-  } = storeState.filters;
+  } = storeState.activeFilters;
 
   if( typeof exp === 'string' && exp.length > 0)
     query += `${exp}`;

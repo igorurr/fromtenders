@@ -64,20 +64,20 @@ class ListVacancies extends React.Component {
     );
   }
 };
-
-ListVacancies.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  page: PropTypes.number.isRequired,
-  loadNextPage: PropTypes.func.isRequired,
-  addIfNotExist: PropTypes.func.isRequired,
-  removeIfExist: PropTypes.func.isRequired,
-};
+// 
+// ListVacancies.propTypes = {
+//   isFetching: PropTypes.bool.isRequired,
+//   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   page: PropTypes.number.isRequired,
+//   loadNextPage: PropTypes.func.isRequired,
+//   addIfNotExist: PropTypes.func.isRequired,
+//   removeIfExist: PropTypes.func.isRequired,
+// };
 
 
 const mapStateToProps = state => ({
-  isFetching: state.receivedData.isFetching,
-  page: state.list.page,
+  isFetching: state.receivedData.get('isFetching'),
+  page: state.loadedPages,
   items: getSearchedVacancies(state),
 });
 

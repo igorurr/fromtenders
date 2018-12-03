@@ -11,42 +11,41 @@ import {
   SALARY
 } from '../../constants/allFilterGroups';
 
-const AllFilterGroups = ({ filters, filterFetchData }) => {
-    const { exp, empl, schedule, salary, sortType } = filters
+const AllFilterGroups = ({ filterFetchData }) => {
 
     return (
       <div className='all-filter-groups'>
 
         <FilterGroup
-          activeValue={exp}
+          activeValue={'exp'}
           header={'Опыт работы'}
           parameter={EXPERIENCE}
           onFilterClick={value => filterFetchData('exp', value)}
         />
 
         <FilterGroup
-          activeValue={empl}
+          activeValue={'empl'}
           header={'Тип занятости'}
           parameter={EMPLOYMENT}
           onFilterClick={value => filterFetchData('empl', value)}
         />
 
         <FilterGroup
-          activeValue={schedule}
+          activeValue={'schedule'}
           header={'График работы'}
           parameter={SCHEDULE}
           onFilterClick={value => filterFetchData('schedule', value)}
         />
 
         <FilterGroup
-          activeValue={salary}
+          activeValue={'salary'}
           header={'Зарплата'}
           parameter={SALARY}
           onFilterClick={value => filterFetchData('salary', value)}
         />
 
         <FilterGroup
-          activeValue={sortType}
+          activeValue={'sortType'}
           header={'Сортировать по'}
           parameter={SORT_TYPE}
           onFilterClick={value => filterFetchData('sortType', value)}
@@ -56,15 +55,11 @@ const AllFilterGroups = ({ filters, filterFetchData }) => {
     );
 };
 
-const mapStateToProps = state => ({
-    filters: state.filters
-});
-
 const mapDispatchToProps = dispatch => ({
   filterFetchData: (filter, value) => dispatch(filterFetchData(filter, value))
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(AllFilterGroups);
