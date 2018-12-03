@@ -14,12 +14,24 @@ const Header = ({ value, router, onSearch }) => {
       </div>
 
       <div className='links'>
-        <Link to='/'
+        <Link
+          to='/selected'
+          className={router === '/selected' ? 'route' : ''}
+        >
+          Избранное
+        </Link>
+        <Link
+          to='/'
           className={router === '/' ? 'route' : ''}
-        >Список</Link>
-        <Link to='/map'
+        >
+          Список
+        </Link>
+        <Link
+          to='/map'
           className={router === '/map' ? 'route' : ''}
-        >Карта</Link>
+        >
+          Карта
+        </Link>
       </div>
 
       <div className="search">

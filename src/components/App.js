@@ -5,7 +5,7 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import { Header } from './index'
-import { ListVacancies, MapVacancies } from '../components'
+import { ListVacancies, SelectedVacancies, MapVacancies } from '../components'
 import { Error, LeftBar } from '../containers';
 import '../css/App.css';
 import { fetchData } from "../actions/fetchData";
@@ -23,6 +23,7 @@ class App extends Component {
             <main id={"app"} style={{ height: (window.innerHeight-40)+"px" }}>
               <LeftBar />
               <Route exact path={'/'} component={ListVacancies} />
+              <Route path={'/selected'} component={SelectedVacancies} />
               <Route path={'/map'} component={MapVacancies} />
             </main>
           </Switch>

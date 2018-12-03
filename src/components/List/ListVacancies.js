@@ -8,20 +8,6 @@ import { checkItemsForSelected } from '../../helpers/';
 
 import { SingleVacancy } from '../index';
 
-
-class RowComponent extends React.Component {
-  render() {
-    const { item, onAdd, onRemove } = this.props;
-    return (
-      <li>
-        {item.name}
-        <button onClick={onAdd}>Add</button>
-        <button onClick={onRemove}>Remove</button>
-      </li>
-    )
-  }
-}
-
 class ListVacancies extends React.Component {
   constructor(props) {
     super(props);
