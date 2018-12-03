@@ -12,11 +12,7 @@ const initialState = Map({
 const activeFilters = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_FILTERS:
-      return state.set([action.filter], action.value)
-      // return {
-      //   ...state,
-      //   [action.filter]: action.value
-      // };
+      return state.set(action.filter, action.value)
     default:
       return state;
   }

@@ -11,7 +11,7 @@ import {
   SALARY
 } from '../../constants/allFilterGroups';
 
-const AllFilterGroups = ({ filterFetchData }) => {
+const AllFilterGroups = ({ filters, filterFetchData }) => {
 
     return (
       <div className='all-filter-groups'>
